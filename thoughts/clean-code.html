@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Writing Clean Code | Samir</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .article-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-content .article-meta {
+            color: var(--accent-1);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 2rem;
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        .article-content code {
+            background: var(--accent-4);
+            padding: 0.2rem 0.5rem;
+            border: 2px solid var(--primary);
+            font-size: 0.9em;
+        }
+        .article-content pre {
+            background: var(--accent-3);
+            padding: 1.5rem;
+            border: var(--border-width) solid var(--primary);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--primary);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .article-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">SAMIR</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#skills">Skills</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#thoughts">Thoughts</a></li>
+                <li><a href="../index.html#resume">Resume</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section style="margin-top: 80px; padding: 4rem 0;">
+        <div class="article-content">
+            <h1>The Art of Writing Clean Code</h1>
+            <div class="article-meta">Published on January 15, 2026</div>
+            
+            <p>
+                Clean code isn't just about making your program work—it's about making it readable, 
+                maintainable, and beautiful. Over the years, I've learned that the best code is code 
+                that your future self (and your teammates) will thank you for writing.
+            </p>
+
+            <h2>What Makes Code Clean?</h2>
+            <p>
+                Clean code follows a set of principles that prioritize human understanding over 
+                machine execution. It's self-documenting, follows consistent patterns, and makes 
+                the intent clear to anyone who reads it.
+            </p>
+
+            <h2>Naming Matters</h2>
+            <p>
+                One of the most important aspects of clean code is choosing meaningful names. 
+                A variable named <code>data</code> tells you nothing. But <code>userProfile</code> 
+                immediately communicates its purpose. Names should reveal intent.
+            </p>
+
+            <h2>Functions Should Do One Thing</h2>
+            <p>
+                Functions should be small and focused. If you can't describe what a function does 
+                in a single sentence, it's probably doing too much. This principle, known as the 
+                Single Responsibility Principle, makes code easier to test, debug, and maintain.
+            </p>
+
+            <h2>Comments Are a Code Smell</h2>
+            <p>
+                Good code should be self-explanatory. If you find yourself writing a comment to 
+                explain what code does, consider refactoring the code instead. Comments should 
+                explain <em>why</em>, not <em>what</em>.
+            </p>
+
+            <h2>Conclusion</h2>
+            <p>
+                Writing clean code is a skill that develops over time. It requires discipline, 
+                practice, and a willingness to refactor. But the investment pays off in spades 
+                when you or someone else needs to understand or modify that code months later.
+            </p>
+
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--primary);">
+                <a href="index.html" class="btn btn-outline">← Back to Thoughts</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>Built with passion, coffee, and modern web technologies.</p>
+                    <p class="footer-copyright">© 2026 Samir. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footer-link">Twitter</a>
+                    <a href="mailto:your.email@example.com" class="footer-link">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

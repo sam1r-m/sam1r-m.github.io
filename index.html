@@ -1,7 +1,347 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Samir's personal website - Technology enthusiast, software developer, and creative problem solver">
+    <title>Samir | Developer & Thinker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
 <body>
-<h1>Hello World</h1>
-<p>This is my website.</p>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">SAMIR</a>
+            <ul class="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#thoughts">Thoughts</a></li>
+                <li><a href="#resume">Resume</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">HELLO, I'M</span>
+                    <span class="title-name">SAMIR</span>
+                    <span class="title-subtitle">BUILDING THE FUTURE, ONE LINE AT A TIME</span>
+                </h1>
+                <p class="hero-description">
+                    A quirky technology enthusiast who turns coffee into code, 
+                    ideas into applications, and problems into solutions. 
+                    Currently studying computer science while building cool stuff.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#resume" class="btn btn-secondary">Download Resume</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <div class="graphic-box graphic-1"></div>
+                <div class="graphic-box graphic-2"></div>
+                <div class="graphic-box graphic-3"></div>
+                <div class="graphic-circle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm a passionate computer science student who believes that great software 
+                        comes from understanding both the technical and human sides of technology. 
+                        When I'm not coding, you'll find me exploring new frameworks, reading about 
+                        system design, or contemplating the philosophy of software engineering.
+                    </p>
+                    <p>
+                        My approach to development is simple: build things that matter, write code 
+                        that's readable, and never stop learning. I'm particularly interested in 
+                        full-stack development, AI/ML applications, and creating delightful user experiences.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Projects Built</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Technologies Mastered</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Cups of Coffee</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <span>👨‍💻</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">SKILLS & TECHNOLOGIES</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="category-title">Frontend</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">Three.js</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">Backend</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Express</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">Tools & Others</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">Learning</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Rust</span>
+                        <span class="skill-tag">GraphQL</span>
+                        <span class="skill-tag">Kubernetes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">FEATURED PROJECTS</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub">🔗</a>
+                            <a href="#" class="project-link" aria-label="Live Demo">🚀</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A full-stack e-commerce solution with real-time inventory management, 
+                        payment processing, and admin dashboard. Built with React, Node.js, and PostgreSQL.
+                    </p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>PostgreSQL</span>
+                        <span>Stripe API</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">AI Code Assistant</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub">🔗</a>
+                            <a href="#" class="project-link" aria-label="Live Demo">🚀</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        An intelligent coding assistant that helps developers write better code 
+                        using machine learning models. Features code completion, bug detection, and refactoring suggestions.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>FastAPI</span>
+                        <span>React</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Social Media Analytics</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub">🔗</a>
+                            <a href="#" class="project-link" aria-label="Live Demo">🚀</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Real-time analytics dashboard for social media metrics. Visualizes engagement, 
+                        growth trends, and audience insights with beautiful data visualizations.
+                    </p>
+                    <div class="project-tech">
+                        <span>Next.js</span>
+                        <span>D3.js</span>
+                        <span>MongoDB</span>
+                        <span>Redis</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Task Management App</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="GitHub">🔗</a>
+                            <a href="#" class="project-link" aria-label="Live Demo">🚀</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A collaborative task management tool with real-time updates, drag-and-drop 
+                        functionality, and team collaboration features. Built for productivity enthusiasts.
+                    </p>
+                    <div class="project-tech">
+                        <span>Vue.js</span>
+                        <span>Socket.io</span>
+                        <span>Express</span>
+                        <span>MongoDB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="projects-footer">
+                <a href="projects/" class="btn btn-outline">View All Projects →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thoughts Section -->
+    <section id="thoughts" class="thoughts">
+        <div class="container">
+            <h2 class="section-title">THOUGHTS & WRITINGS</h2>
+            <div class="thoughts-grid">
+                <article class="thought-card">
+                    <div class="thought-date">Jan 15, 2026</div>
+                    <h3 class="thought-title">The Art of Writing Clean Code</h3>
+                    <p class="thought-excerpt">
+                        Exploring the principles that make code not just functional, but beautiful 
+                        and maintainable. A deep dive into software craftsmanship...
+                    </p>
+                    <a href="thoughts/clean-code.html" class="thought-link">Read More →</a>
+                </article>
+
+                <article class="thought-card">
+                    <div class="thought-date">Dec 28, 2025</div>
+                    <h3 class="thought-title">Building Scalable Systems</h3>
+                    <p class="thought-excerpt">
+                        Lessons learned from designing systems that handle millions of requests. 
+                        Architecture patterns, trade-offs, and real-world examples...
+                    </p>
+                    <a href="thoughts/scalable-systems.html" class="thought-link">Read More →</a>
+                </article>
+
+                <article class="thought-card">
+                    <div class="thought-date">Dec 10, 2025</div>
+                    <h3 class="thought-title">Why I Love Functional Programming</h3>
+                    <p class="thought-excerpt">
+                        A personal journey into functional programming paradigms and how they've 
+                        changed my approach to problem-solving...
+                    </p>
+                    <a href="thoughts/functional-programming.html" class="thought-link">Read More →</a>
+                </article>
+            </div>
+            <div class="thoughts-footer">
+                <a href="thoughts/" class="btn btn-outline">View All Thoughts →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="resume">
+        <div class="container">
+            <h2 class="section-title">RESUME & EXPERIENCE</h2>
+            <div class="resume-content">
+                <div class="resume-download">
+                    <div class="resume-box">
+                        <h3>Download Resume</h3>
+                        <p>Get a PDF copy of my resume with detailed experience, education, and skills.</p>
+                        <a href="assets/resume.pdf" class="btn btn-primary" download>Download PDF</a>
+                    </div>
+                </div>
+                <div class="resume-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024 - Present</div>
+                        <div class="timeline-content">
+                            <h3>Software Engineering Intern</h3>
+                            <h4>Tech Company Inc.</h4>
+                            <p>Working on full-stack development, building scalable web applications, and collaborating with cross-functional teams.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022 - 2026</div>
+                        <div class="timeline-content">
+                            <h3>Computer Science Student</h3>
+                            <h4>University Name</h4>
+                            <p>Pursuing Bachelor's in Computer Science with focus on software engineering, algorithms, and distributed systems.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-content">
+                            <h3>Open Source Contributor</h3>
+                            <h4>Various Projects</h4>
+                            <p>Contributing to open source projects, fixing bugs, and adding features to popular libraries and frameworks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>Built with passion, coffee, and modern web technologies.</p>
+                    <p class="footer-copyright">© 2026 Samir. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footer-link">Twitter</a>
+                    <a href="mailto:your.email@example.com" class="footer-link">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
