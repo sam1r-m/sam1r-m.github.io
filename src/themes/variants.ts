@@ -36,6 +36,7 @@ type ComponentVariants = {
     primary: string;
     secondary: string;
     accent: string;
+    outline: string;
   };
   input: {
     default: string;
@@ -54,6 +55,7 @@ type ComponentVariants = {
     h2: string;
     h3: string;
   };
+  sectionHeader: string;
 };
 
 // ============================================================================
@@ -157,6 +159,11 @@ const mainVariants: ComponentVariants = {
       rounded-full text-xs font-medium
       bg-[var(--accent)] text-[var(--accent-fg)]
     `,
+    outline: `
+      inline-flex items-center px-2.5 py-0.5
+      rounded-full text-xs font-medium
+      border border-[var(--border)] text-[var(--fg)]
+    `,
   },
   input: {
     default: `
@@ -207,6 +214,9 @@ const mainVariants: ComponentVariants = {
       text-[var(--fg)]
     `,
   },
+  sectionHeader: `
+    text-3xl md:text-4xl font-bold tracking-tight text-[var(--fg)]
+  `,
 };
 
 // ============================================================================
@@ -311,6 +321,12 @@ const brutalistVariants: ComponentVariants = {
       font-mono uppercase tracking-wider text-xs
       bg-[var(--accent)] text-[var(--accent-fg)]
     `,
+    outline: `
+      inline-flex items-center px-2 py-1
+      border-2 border-[var(--border)]
+      font-mono uppercase tracking-wider text-xs
+      bg-transparent text-[var(--fg)]
+    `,
   },
   input: {
     default: `
@@ -359,6 +375,9 @@ const brutalistVariants: ComponentVariants = {
       text-[var(--fg)]
     `,
   },
+  sectionHeader: `
+    text-4xl md:text-5xl font-serif font-normal tracking-tight text-[var(--fg)] border-b-2 border-[var(--border)] pb-4
+  `,
 };
 
 // ============================================================================
@@ -478,6 +497,13 @@ const neoBrutalismVariants: ComponentVariants = {
       bg-[var(--accent)] text-[var(--accent-fg)]
       shadow-[2px_2px_0px_var(--border)]
     `,
+    outline: `
+      inline-flex items-center px-3 py-1
+      border-2 border-[var(--border)]
+      rounded-full font-bold text-xs
+      bg-transparent text-[var(--fg)]
+      shadow-[2px_2px_0px_var(--border)]
+    `,
   },
   input: {
     default: `
@@ -532,6 +558,9 @@ const neoBrutalismVariants: ComponentVariants = {
       text-[var(--fg)]
     `,
   },
+  sectionHeader: `
+    text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--fg)]
+  `,
 };
 
 // ============================================================================
@@ -632,6 +661,12 @@ const minimalistVariants: ComponentVariants = {
       border border-[var(--border)]
       text-[var(--fg)]
     `,
+    outline: `
+      inline-flex items-center px-2 py-0.5
+      rounded text-xs font-medium
+      border border-[var(--border)]
+      text-[var(--fg)]
+    `,
   },
   input: {
     default: `
@@ -678,6 +713,9 @@ const minimalistVariants: ComponentVariants = {
       text-[var(--fg)]
     `,
   },
+  sectionHeader: `
+    text-2xl md:text-3xl font-medium tracking-tight text-[var(--fg)]
+  `,
 };
 
 // ============================================================================

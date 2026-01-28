@@ -7,6 +7,7 @@ export interface Project {
   tags: string[];
   links: {
     live?: string;
+    demo?: string;
     github?: string;
     case_study?: string;
   };

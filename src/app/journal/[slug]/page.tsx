@@ -22,14 +22,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: post.title,
-    description: post.summary,
+    title: post.frontmatter.title,
+    description: post.frontmatter.summary,
     openGraph: {
-      title: post.title,
-      description: post.summary,
+      title: post.frontmatter.title,
+      description: post.frontmatter.summary,
       type: 'article',
-      publishedTime: post.date,
-      tags: post.tags,
+      publishedTime: post.frontmatter.date,
+      tags: post.frontmatter.tags,
     },
   };
 }
@@ -104,7 +104,7 @@ export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
-  if (!post || post.published === false) {
+  if (!post || post.frontmatter.published === false) {
     notFound();
   }
 

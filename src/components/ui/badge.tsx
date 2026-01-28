@@ -6,7 +6,7 @@ import { useTheme } from '@/themes';
 import { getVariant } from '@/themes/variants';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'primary' | 'secondary' | 'accent';
+  variant?: 'default' | 'primary' | 'secondary' | 'accent' | 'outline';
 }
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(

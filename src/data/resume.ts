@@ -7,6 +7,7 @@ export interface Experience {
   endDate: string | null; // null = present
   description: string;
   highlights: string[];
+  technologies?: string[];
 }
 
 export interface Education {
@@ -17,6 +18,8 @@ export interface Education {
   startDate: string;
   endDate: string;
   highlights?: string[];
+  gpa?: string;
+  honors?: string[];
 }
 
 export interface Skill {
@@ -33,6 +36,7 @@ export interface Resume {
   experience: Experience[];
   education: Education[];
   skills: Skill[];
+  certifications?: string[];
 }
 
 export const resume: Resume = {

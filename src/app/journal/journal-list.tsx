@@ -20,7 +20,7 @@ export function JournalList({ posts, tags }: JournalListProps) {
 
   const filteredPosts = selectedTag
     ? posts.filter((p) =>
-        p.tags.some((t) => t.toLowerCase() === selectedTag.toLowerCase())
+        p.frontmatter.tags.some((t) => t.toLowerCase() === selectedTag.toLowerCase())
       )
     : posts;
 
@@ -76,7 +76,7 @@ export function JournalList({ posts, tags }: JournalListProps) {
             </Button>
             {tags.map((tag) => {
               const count = posts.filter((p) =>
-                p.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+                p.frontmatter.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
               ).length;
               return (
                 <Button
@@ -116,18 +116,18 @@ export function JournalList({ posts, tags }: JournalListProps) {
                     {/* Content */}
                     <div className="flex-1">
                       <h2 className="text-xl font-semibold group-hover:text-[var(--primary)] transition-colors">
-                        {post.title}
+                        {post.frontmatter.title}
                       </h2>
                       <p className="mt-2 text-[var(--fg-muted)]">
-                        {post.summary}
+                        {post.frontmatter.summary}
                       </p>
                       <div className="mt-4 flex flex-wrap items-center gap-4">
                         <span className="flex items-center gap-1.5 text-sm text-[var(--fg-muted)]">
                           <Calendar className="w-4 h-4" />
-                          {formatDate(post.date)}
+                          {formatDate(post.frontmatter.date)}
                         </span>
                         <div className="flex gap-2">
-                          {post.tags.map((tag) => (
+                          {post.frontmatter.tags.map((tag) => (
                             <Badge
                               key={tag}
                               variant={selectedTag === tag ? 'primary' : 'secondary'}

@@ -12,12 +12,6 @@ interface PostWrapperProps {
   children: React.ReactNode;
 }
 
-function estimateReadingTime(content: string): number {
-  const wordsPerMinute = 200;
-  const wordCount = content.split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
-}
-
 export function PostWrapper({ post, children }: PostWrapperProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -60,21 +54,21 @@ export function PostWrapper({ post, children }: PostWrapperProps) {
 
           {/* Header */}
           <motion.header variants={itemVariants} className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{post.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{post.frontmatter.title}</h1>
             
             <div className="mt-4 flex flex-wrap items-center gap-4 text-[var(--fg-muted)]">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
-                {formatDate(post.date)}
+                {formatDate(post.frontmatter.date)}
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                5 min read
+                {post.readingTime}
               </span>
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
+              {post.frontmatter.tags.map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--muted)] text-[var(--muted-fg)]"
@@ -84,9 +78,9 @@ export function PostWrapper({ post, children }: PostWrapperProps) {
               ))}
             </div>
 
-            {post.summary && (
+            {post.frontmatter.summary && (
               <p className="mt-6 text-lg text-[var(--fg-muted)] leading-relaxed">
-                {post.summary}
+                {post.frontmatter.summary}
               </p>
             )}
           </motion.header>

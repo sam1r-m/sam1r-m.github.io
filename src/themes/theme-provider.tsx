@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { ThemeId, themes, getTheme } from './registry'
+import { ThemeId, themes, getTheme, Theme } from './registry'
 
 interface ThemeContextType {
   theme: ThemeId
@@ -34,40 +34,24 @@ function applyThemeTokens(themeId: ThemeId, isDark: boolean) {
     root.classList.add('dark')
   }
   
-  // Set CSS variables for colors
-  const tokens = theme.tokens
+  // Apply tokens - use dark tokens if available and dark mode is active
+  const lightTokens = theme.tokens
+  const darkTokens = theme.darkTokens
   
-  // Apply light or dark tokens based on mode
-  root.style.setProperty('--background', useDark && tokens.darkBackground ? tokens.darkBackground : tokens.background)
-  root.style.setProperty('--foreground', useDark && tokens.darkForeground ? tokens.darkForeground : tokens.foreground)
-  root.style.setProperty('--muted', useDark && tokens.darkMuted ? tokens.darkMuted : tokens.muted)
-  root.style.setProperty('--muted-foreground', useDark && tokens.darkMutedForeground ? tokens.darkMutedForeground : tokens.mutedForeground)
-  root.style.setProperty('--primary', useDark && tokens.darkPrimary ? tokens.darkPrimary : tokens.primary)
-  root.style.setProperty('--primary-foreground', useDark && tokens.darkPrimaryForeground ? tokens.darkPrimaryForeground : tokens.primaryForeground)
-  root.style.setProperty('--secondary', useDark && tokens.darkSecondary ? tokens.darkSecondary : tokens.secondary)
-  root.style.setProperty('--secondary-foreground', useDark && tokens.darkSecondaryForeground ? tokens.darkSecondaryForeground : tokens.secondaryForeground)
-  root.style.setProperty('--accent', useDark && tokens.darkAccent ? tokens.darkAccent : tokens.accent)
-  root.style.setProperty('--accent-foreground', useDark && tokens.darkAccentForeground ? tokens.darkAccentForeground : tokens.accentForeground)
-  root.style.setProperty('--border', useDark && tokens.darkBorder ? tokens.darkBorder : tokens.border)
-  root.style.setProperty('--card', useDark && tokens.darkCard ? tokens.darkCard : tokens.card)
-  root.style.setProperty('--card-foreground', useDark && tokens.darkCardForeground ? tokens.darkCardForeground : tokens.cardForeground)
+  // Apply each token
+  Object.entries(lightTokens).forEach(([key, value]) => {
+    // Skip non-CSS-variable properties (the dark* properties we added)
+    if (!key.startsWith('--')) return
+    
+    // Check if there's a dark override
+    const darkValue = useDark && darkTokens ? darkTokens[key as keyof typeof lightTokens] : undefined
+    root.style.setProperty(key, darkValue ?? value)
+  })
   
   // Apply fonts
-  root.style.setProperty('--font-sans', theme.fonts.sans)
-  root.style.setProperty('--font-mono', theme.fonts.mono)
-  root.style.setProperty('--font-serif', theme.fonts.serif)
-  root.style.setProperty('--font-display', theme.fonts.display)
-  
-  // Apply styles
-  root.style.setProperty('--radius', theme.styles.radius)
-  root.style.setProperty('--border-width', theme.styles.borderWidth)
-  root.style.setProperty('--shadow', theme.styles.shadow)
-  root.style.setProperty('--shadow-lg', theme.styles.shadowLg)
-  root.style.setProperty('--shadow-hover', theme.styles.shadowHover)
-  root.style.setProperty('--letter-spacing', theme.styles.letterSpacing)
-  root.style.setProperty('--letter-spacing-tight', theme.styles.letterSpacingTight)
-  root.style.setProperty('--letter-spacing-wide', theme.styles.letterSpacingWide)
-  root.style.setProperty('--section-spacing', theme.styles.sectionSpacing)
+  Object.entries(theme.fonts).forEach(([key, value]) => {
+    root.style.setProperty(key, value)
+  })
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -80,7 +64,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as ThemeId | null
     const savedDarkMode = localStorage.getItem(DARK_MODE_STORAGE_KEY)
     
-    if (savedTheme && themes[savedTheme]) {
+    // Check if savedTheme is valid
+    if (savedTheme && themes.some(t => t.id === savedTheme)) {
       setThemeState(savedTheme)
     }
     
@@ -116,7 +101,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setIsDark(!isDark)
   }, [isDark, setIsDark])
   
-  const supportsDarkMode = themes[theme]?.features.supportsDarkMode ?? false
+  const currentTheme = themes.find(t => t.id === theme)
+  const supportsDarkMode = currentTheme?.features.supportsDarkMode ?? false
   
   // Prevent flash by not rendering until mounted
   if (!mounted) {

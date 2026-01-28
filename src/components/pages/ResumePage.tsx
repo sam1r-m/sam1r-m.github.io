@@ -11,12 +11,12 @@ export function ResumePage() {
   const { theme } = useTheme()
   const springConfig = getSpringConfig(theme)
   
-  const formatDateRange = (start: string, end: string | 'Present') => {
+  const formatDateRange = (start: string, end: string | null) => {
     const formatDate = (d: string) => {
       const date = new Date(d)
       return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
     }
-    return `${formatDate(start)} — ${end === 'Present' ? 'Present' : formatDate(end)}`
+    return `${formatDate(start)} — ${end === null ? 'Present' : formatDate(end)}`
   }
   
   return (
@@ -142,8 +142,9 @@ export function ResumePage() {
                 {exp.company} · {exp.location}
               </p>
               
+              <p className="text-sm text-muted-foreground mb-3">{exp.description}</p>
               <ul className="space-y-2 mb-4">
-                {exp.description.map((item, i) => (
+                {exp.highlights.map((item, i) => (
                   <li key={i} className="text-sm text-muted-foreground flex gap-2">
                     <span className="text-primary">•</span>
                     {item}

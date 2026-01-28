@@ -9,8 +9,7 @@ import matter from 'gray-matter';
  * Uses gray-matter for frontmatter parsing and next-mdx-remote for rendering.
  */
 
-export interface PostMeta {
-  slug: string;
+export interface PostFrontmatter {
   title: string;
   date: string;
   summary: string;
@@ -18,11 +17,27 @@ export interface PostMeta {
   published?: boolean;
 }
 
+export interface PostMeta {
+  slug: string;
+  frontmatter: PostFrontmatter;
+  readingTime: string;
+}
+
 export interface Post extends PostMeta {
   content: string;
 }
 
 const JOURNAL_PATH = path.join(process.cwd(), 'content', 'journal');
+
+/**
+ * Calculate reading time for content
+ */
+function calculateReadingTime(content: string): string {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min read`;
+}
 
 /**
  * Get all post slugs for static generation
@@ -53,11 +68,14 @@ export function getPostBySlug(slug: string): Post | null {
 
   return {
     slug,
-    title: data.title || 'Untitled',
-    date: data.date || new Date().toISOString(),
-    summary: data.summary || '',
-    tags: data.tags || [],
-    published: data.published !== false,
+    frontmatter: {
+      title: data.title || 'Untitled',
+      date: data.date || new Date().toISOString(),
+      summary: data.summary || '',
+      tags: data.tags || [],
+      published: data.published !== false,
+    },
+    readingTime: calculateReadingTime(content),
     content,
   };
 }
@@ -71,14 +89,14 @@ export function getAllPosts(): PostMeta[] {
   return slugs
     .map((slug) => {
       const post = getPostBySlug(slug);
-      if (!post || post.published === false) return null;
+      if (!post || post.frontmatter.published === false) return null;
       
       // Return only metadata, not content
       const { content, ...meta } = post;
       return meta;
     })
     .filter((post): post is PostMeta => post !== null)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
 }
 
 /**
@@ -89,7 +107,7 @@ export function getAllTags(): string[] {
   const tagSet = new Set<string>();
   
   posts.forEach((post) => {
-    post.tags.forEach((tag) => tagSet.add(tag));
+    post.frontmatter.tags.forEach((tag) => tagSet.add(tag));
   });
   
   return Array.from(tagSet).sort();
@@ -100,6 +118,6 @@ export function getAllTags(): string[] {
  */
 export function getPostsByTag(tag: string): PostMeta[] {
   return getAllPosts().filter((post) =>
-    post.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+    post.frontmatter.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
   );
 }
