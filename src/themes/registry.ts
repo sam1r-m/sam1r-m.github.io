@@ -357,3 +357,8 @@ export function getTheme(id: ThemeId): Theme {
 export function getThemeIds(): ThemeId[] {
   return themes.map((t) => t.id);
 }
+
+// Alias for backwards compatibility
+export function getThemeList(): Theme[] {
+  return themes;
+}
