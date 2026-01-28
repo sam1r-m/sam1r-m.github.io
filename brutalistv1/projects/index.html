@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECTS — SAMIR</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .page-head { padding: 4rem 0 2rem; border-bottom: 3px solid var(--black); }
+    .page-head a { text-decoration: none; font-weight: 700; }
+    .page-head a:hover { text-decoration: underline; }
+    .main-wrap { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div id="cursor" class="cursor cursor--hidden" aria-hidden="true"></div>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">SAMIR</a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#about">ABOUT</a></li>
+        <li><a href="../index.html#projects">PROJECTS</a></li>
+        <li><a href="../index.html#thoughts">THOUGHTS</a></li>
+        <li><a href="../index.html#resume">RESUME</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="container page-head main-wrap">
+    <a href="../index.html">← Back</a>
+    <h1 class="section-title" style="margin-top:1rem;">All projects</h1>
+  </div>
+
+  <section class="projects">
+    <div class="container">
+      <div class="projects-grid">
+        <div class="project-card" id="ecommerce">
+          <div class="project-header">
+            <h3 class="project-title">E-COMMERCE PLATFORM</h3>
+            <div class="project-links"><a href="#" class="project-link">GITHUB</a> <a href="#" class="project-link">LIVE</a></div>
+          </div>
+          <p class="project-description">Full-stack e-commerce. Real-time inventory. Payment. Admin. React, Node.js, PostgreSQL, Stripe.</p>
+          <div class="project-tech"><span>REACT</span><span>NODE.JS</span><span>POSTGRESQL</span><span>STRIPE</span></div>
+        </div>
+        <div class="project-card" id="ai">
+          <div class="project-header">
+            <h3 class="project-title">AI CODE ASSISTANT</h3>
+            <div class="project-links"><a href="#" class="project-link">GITHUB</a> <a href="#" class="project-link">LIVE</a></div>
+          </div>
+          <p class="project-description">ML. Completion, bug detection, refactor. Python, TensorFlow, FastAPI, React.</p>
+          <div class="project-tech"><span>PYTHON</span><span>TENSORFLOW</span><span>FASTAPI</span><span>REACT</span></div>
+        </div>
+        <div class="project-card" id="analytics">
+          <div class="project-header">
+            <h3 class="project-title">ANALYTICS DASHBOARD</h3>
+            <div class="project-links"><a href="#" class="project-link">GITHUB</a> <a href="#" class="project-link">LIVE</a></div>
+          </div>
+          <p class="project-description">Next.js, D3, MongoDB, Redis. Real-time metrics and viz.</p>
+          <div class="project-tech"><span>NEXT.JS</span><span>D3.JS</span><span>MONGODB</span><span>REDIS</span></div>
+        </div>
+        <div class="project-card" id="tasks">
+          <div class="project-header">
+            <h3 class="project-title">TASK MANAGEMENT</h3>
+            <div class="project-links"><a href="#" class="project-link">GITHUB</a> <a href="#" class="project-link">LIVE</a></div>
+          </div>
+          <p class="project-description">Vue, Socket.io, Express, MongoDB. Collaborative, real-time.</p>
+          <div class="project-tech"><span>VUE.JS</span><span>SOCKET.IO</span><span>EXPRESS</span><span>MONGODB</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2026 SAMIR</p>
+      <div class="footer-links">
+        <a href="https://github.com">GITHUB</a>
+        <a href="https://linkedin.com">LINKEDIN</a>
+        <a href="mailto:your.email@example.com">EMAIL</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

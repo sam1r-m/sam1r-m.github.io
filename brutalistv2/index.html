@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Samir — developer, builder.">
+  <title>Samir</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="cursor" class="cursor cursor--hidden" aria-hidden="true"></div>
+
+  <header id="hero" class="hero">
+    <canvas id="hatch" class="hero__hatch" aria-hidden="true"></canvas>
+    <div class="hero__inner">
+      <h1 class="hero__title">Samir</h1>
+      <p class="hero__tagline">Code. Build. Ship.</p>
+      <nav class="hero__nav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#thoughts">Thoughts</a>
+        <a href="#resume">Resume</a>
+      </nav>
+      <div class="hero__scroll">Scroll</div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="about" class="block">
+      <h2 class="block__title">About</h2>
+      <div class="block__body">
+        <p>I build software that matters. Computer science student. Systems, performance, and architectures that scale.</p>
+        <p>Philosophy: write code that works, scales, and doesn’t break. When I’m not coding, I’m in system design, open source, or breaking things to understand them.</p>
+      </div>
+    </section>
+
+    <section id="skills" class="block block--alt">
+      <h2 class="block__title">Skills</h2>
+      <div class="block__body">
+        <ul class="skills-list">
+          <li><span class="skills-list__cat">Frontend</span> React, TypeScript, Next.js, Vue, Tailwind</li>
+          <li><span class="skills-list__cat">Backend</span> Node.js, Python, Express, PostgreSQL, MongoDB, Redis</li>
+          <li><span class="skills-list__cat">Infra</span> Docker, AWS, Linux, CI/CD, Git</li>
+          <li><span class="skills-list__cat">Learning</span> Rust, Kubernetes, GraphQL</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects" class="block">
+      <h2 class="block__title">Projects</h2>
+      <div class="block__body">
+        <ul class="link-list">
+          <li><a href="projects/#ecommerce">E‑commerce platform</a> — Full‑stack, real‑time inventory, Stripe.</li>
+          <li><a href="projects/#ai">AI code assistant</a> — ML, completion, bug detection, refactor hints.</li>
+          <li><a href="projects/#analytics">Analytics dashboard</a> — Next.js, D3, MongoDB, Redis.</li>
+          <li><a href="projects/#tasks">Task management</a> — Vue, Socket.io, Express, MongoDB.</li>
+        </ul>
+        <p><a href="projects/">All projects →</a></p>
+      </div>
+    </section>
+
+    <section id="thoughts" class="block block--alt">
+      <h2 class="block__title">Thoughts</h2>
+      <div class="block__body">
+        <ul class="link-list">
+          <li><a href="thoughts/clean-code.html">Writing clean code</a> — 15 Jan 2026</li>
+          <li><a href="thoughts/scalable-systems.html">Scalable systems</a> — 28 Dec 2025</li>
+          <li><a href="thoughts/functional-programming.html">Functional programming</a> — 10 Dec 2025</li>
+        </ul>
+        <p><a href="thoughts/">All thoughts →</a></p>
+      </div>
+    </section>
+
+    <section id="resume" class="block">
+      <h2 class="block__title">Resume</h2>
+      <div class="block__body">
+        <p><a href="assets/resume.pdf" download>Download PDF</a></p>
+        <ul class="timeline">
+          <li><strong>2024 – present</strong> Software engineering intern, Tech Co.</li>
+          <li><strong>2022 – 2026</strong> BSc Computer Science, University.</li>
+          <li><strong>2023</strong> Open source contributor.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><a href="https://github.com">GitHub</a> <a href="https://linkedin.com">LinkedIn</a> <a href="https://twitter.com">Twitter</a> <a href="mailto:you@example.com">Email</a></p>
+    <p>© 2026</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

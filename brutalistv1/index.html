@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Samir — Developer. Builder. Problem solver.">
+  <title>SAMIR</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="cursor" class="cursor cursor--hidden" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">SAMIR</a>
+      <ul class="nav-menu">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#skills">SKILLS</a></li>
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="#thoughts">THOUGHTS</a></li>
+        <li><a href="#resume">RESUME</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-bg-elements">
+      <div class="bg-block bg-block-1"></div>
+      <div class="bg-block bg-block-2"></div>
+      <div class="bg-block bg-block-3"></div>
+      <div class="bg-line bg-line-1"></div>
+      <div class="bg-line bg-line-2"></div>
+      <div class="bg-line bg-line-3"></div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <div class="scroll-text">SCROLL</div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <span class="title-main">SAMIR</span>
+          <span class="title-subtitle">CODE. BUILD. SHIP.</span>
+        </h1>
+        <p class="hero-description">
+          <span class="desc-line">Software engineer. Systems thinker. Relentless builder.</span>
+          <span class="desc-line">Turning complex problems into elegant solutions.</span>
+          <span class="desc-line">Currently hacking on the next big thing.</span>
+        </p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">VIEW WORK</a>
+          <a href="#resume" class="btn btn-secondary">GET RESUME</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-label">PROJECTS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="10">0</div>
+          <div class="stat-label">TECH STACKS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">LINES OF CODE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">ABOUT</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>I build software that matters. Not flashy demos or weekend projects—real systems that solve real problems. Computer science student by day, code architect by night.</p>
+          <p>My philosophy is simple: write code that works, scales, and doesn't break. I'm drawn to hard problems—distributed systems, performance optimization, and architectures that handle millions of requests without breaking a sweat.</p>
+          <p>When I'm not coding, I'm reading about system design, contributing to open source, or breaking things to understand how they work. The best code is invisible—it just works.</p>
+        </div>
+        <div class="about-highlights">
+          <div class="highlight-box">
+            <div class="highlight-title">FULL-STACK</div>
+            <div class="highlight-text">Frontend to backend. Database to deployment.</div>
+          </div>
+          <div class="highlight-box">
+            <div class="highlight-title">SYSTEMS</div>
+            <div class="highlight-text">Designing architectures that scale.</div>
+          </div>
+          <div class="highlight-box">
+            <div class="highlight-title">SHIP FAST</div>
+            <div class="highlight-text">Build. Test. Deploy. Iterate.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <div class="container">
+      <h2 class="section-title">SKILLS</h2>
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="skill-header">FRONTEND</div>
+          <div class="skill-list">
+            <span class="skill-item">REACT</span>
+            <span class="skill-item">TYPESCRIPT</span>
+            <span class="skill-item">NEXT.JS</span>
+            <span class="skill-item">VUE</span>
+            <span class="skill-item">TAILWIND</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-header">BACKEND</div>
+          <div class="skill-list">
+            <span class="skill-item">NODE.JS</span>
+            <span class="skill-item">PYTHON</span>
+            <span class="skill-item">EXPRESS</span>
+            <span class="skill-item">POSTGRESQL</span>
+            <span class="skill-item">MONGODB</span>
+            <span class="skill-item">REDIS</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-header">INFRASTRUCTURE</div>
+          <div class="skill-list">
+            <span class="skill-item">DOCKER</span>
+            <span class="skill-item">AWS</span>
+            <span class="skill-item">LINUX</span>
+            <span class="skill-item">CI/CD</span>
+            <span class="skill-item">GIT</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-header">LEARNING</div>
+          <div class="skill-list">
+            <span class="skill-item">RUST</span>
+            <span class="skill-item">KUBERNETES</span>
+            <span class="skill-item">GRAPHQL</span>
+            <span class="skill-item">ML/AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2 class="section-title">PROJECTS</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">E-COMMERCE PLATFORM</h3>
+            <div class="project-links">
+              <a href="#" class="project-link">GITHUB</a>
+              <a href="#" class="project-link">LIVE</a>
+            </div>
+          </div>
+          <p class="project-description">Full-stack e-commerce solution. Real-time inventory. Payment processing. Admin dashboard. Built to handle scale.</p>
+          <div class="project-tech"><span>REACT</span><span>NODE.JS</span><span>POSTGRESQL</span><span>STRIPE</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">AI CODE ASSISTANT</h3>
+            <div class="project-links">
+              <a href="#" class="project-link">GITHUB</a>
+              <a href="#" class="project-link">LIVE</a>
+            </div>
+          </div>
+          <p class="project-description">ML-powered coding assistant. Code completion. Bug detection. Refactoring suggestions. Built for developers.</p>
+          <div class="project-tech"><span>PYTHON</span><span>TENSORFLOW</span><span>FASTAPI</span><span>REACT</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">ANALYTICS DASHBOARD</h3>
+            <div class="project-links">
+              <a href="#" class="project-link">GITHUB</a>
+              <a href="#" class="project-link">LIVE</a>
+            </div>
+          </div>
+          <p class="project-description">Real-time analytics platform. Social media metrics. Data visualization. Built for insights, not just data.</p>
+          <div class="project-tech"><span>NEXT.JS</span><span>D3.JS</span><span>MONGODB</span><span>REDIS</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">TASK MANAGEMENT</h3>
+            <div class="project-links">
+              <a href="#" class="project-link">GITHUB</a>
+              <a href="#" class="project-link">LIVE</a>
+            </div>
+          </div>
+          <p class="project-description">Collaborative task management. Real-time updates. Team collaboration. Built for productivity.</p>
+          <div class="project-tech"><span>VUE.JS</span><span>SOCKET.IO</span><span>EXPRESS</span><span>MONGODB</span></div>
+        </div>
+      </div>
+      <div class="projects-footer">
+        <a href="projects/" class="btn btn-outline">VIEW ALL →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="thoughts" class="thoughts">
+    <div class="container">
+      <h2 class="section-title">THOUGHTS</h2>
+      <div class="thoughts-grid">
+        <article class="thought-card">
+          <div class="thought-meta">JAN 15, 2026</div>
+          <h3 class="thought-title">WRITING CLEAN CODE</h3>
+          <p class="thought-excerpt">Code that works isn't enough. Code that's readable, maintainable, and scalable—that's the goal. Principles and practices.</p>
+          <a href="thoughts/clean-code.html" class="thought-link">READ →</a>
+        </article>
+        <article class="thought-card">
+          <div class="thought-meta">DEC 28, 2025</div>
+          <h3 class="thought-title">SCALABLE SYSTEMS</h3>
+          <p class="thought-excerpt">Building systems that handle millions of requests. Architecture patterns. Trade-offs. Real-world lessons from the trenches.</p>
+          <a href="thoughts/scalable-systems.html" class="thought-link">READ →</a>
+        </article>
+        <article class="thought-card">
+          <div class="thought-meta">DEC 10, 2025</div>
+          <h3 class="thought-title">FUNCTIONAL PROGRAMMING</h3>
+          <p class="thought-excerpt">Why functional programming changes how you think about code. Immutability. Pure functions. Better problem-solving.</p>
+          <a href="thoughts/functional-programming.html" class="thought-link">READ →</a>
+        </article>
+      </div>
+      <div class="thoughts-footer">
+        <a href="thoughts/" class="btn btn-outline">VIEW ALL →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="resume">
+    <div class="container">
+      <h2 class="section-title">RESUME</h2>
+      <div class="resume-content">
+        <div class="resume-download">
+          <div class="resume-box">
+            <h3>DOWNLOAD</h3>
+            <p>Get the full resume. Experience. Education. Skills. All in one PDF.</p>
+            <a href="assets/resume.pdf" class="btn btn-primary" download>DOWNLOAD PDF</a>
+          </div>
+        </div>
+        <div class="resume-timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">2024 - PRESENT</div>
+            <div class="timeline-content">
+              <h3>SOFTWARE ENGINEERING INTERN</h3>
+              <h4>TECH COMPANY INC.</h4>
+              <p>Full-stack development. Scalable web applications. Cross-functional collaboration. Shipping production code.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2022 - 2026</div>
+            <div class="timeline-content">
+              <h3>COMPUTER SCIENCE STUDENT</h3>
+              <h4>UNIVERSITY NAME</h4>
+              <p>Bachelor's in Computer Science. Focus: software engineering, algorithms, distributed systems. Building the foundation.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2023</div>
+            <div class="timeline-content">
+              <h3>OPEN SOURCE CONTRIBUTOR</h3>
+              <h4>VARIOUS PROJECTS</h4>
+              <p>Contributing to open source. Fixing bugs. Adding features. Learning from the best codebases.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-text">
+          <p>BUILT WITH CODE. NO FRAMEWORKS. NO BULLSHIT.</p>
+          <p class="footer-copyright">© 2026 SAMIR</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GITHUB</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LINKEDIN</a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footer-link">TWITTER</a>
+          <a href="mailto:your.email@example.com" class="footer-link">EMAIL</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

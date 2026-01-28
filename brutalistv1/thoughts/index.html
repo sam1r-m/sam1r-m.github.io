@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THOUGHTS — SAMIR</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .page-head { padding: 4rem 0 2rem; border-bottom: 3px solid var(--white); }
+    .page-head a { color: var(--white); text-decoration: none; font-weight: 700; }
+    .page-head a:hover { text-decoration: underline; color: var(--red); }
+    .main-wrap { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div id="cursor" class="cursor cursor--hidden" aria-hidden="true"></div>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">SAMIR</a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#about">ABOUT</a></li>
+        <li><a href="../index.html#projects">PROJECTS</a></li>
+        <li><a href="../index.html#thoughts">THOUGHTS</a></li>
+        <li><a href="../index.html#resume">RESUME</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="container page-head main-wrap" style="background:var(--black); color:var(--white);">
+    <a href="../index.html">← Back</a>
+    <h1 class="section-title" style="margin-top:1rem; color:var(--white);">Thoughts</h1>
+  </div>
+
+  <section class="thoughts">
+    <div class="container">
+      <div class="thoughts-grid">
+        <article class="thought-card">
+          <div class="thought-meta">JAN 15, 2026</div>
+          <h3 class="thought-title">WRITING CLEAN CODE</h3>
+          <p class="thought-excerpt">Code that works isn't enough. Readable, maintainable, scalable. Principles and practices.</p>
+          <a href="clean-code.html" class="thought-link">READ →</a>
+        </article>
+        <article class="thought-card">
+          <div class="thought-meta">DEC 28, 2025</div>
+          <h3 class="thought-title">SCALABLE SYSTEMS</h3>
+          <p class="thought-excerpt">Patterns, trade-offs, lessons from the trenches.</p>
+          <a href="scalable-systems.html" class="thought-link">READ →</a>
+        </article>
+        <article class="thought-card">
+          <div class="thought-meta">DEC 10, 2025</div>
+          <h3 class="thought-title">FUNCTIONAL PROGRAMMING</h3>
+          <p class="thought-excerpt">Immutability. Pure functions. Better problem-solving.</p>
+          <a href="functional-programming.html" class="thought-link">READ →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2026 SAMIR</p>
+      <div class="footer-links">
+        <a href="https://github.com">GITHUB</a>
+        <a href="https://linkedin.com">LINKEDIN</a>
+        <a href="mailto:your.email@example.com">EMAIL</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>
