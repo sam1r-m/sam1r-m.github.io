@@ -1,0 +1,137 @@
+---
+title: Modern CSS Techniques I Use Every Day
+date: 2024-01-08
+summary: A collection of CSS patterns and techniques that have transformed my workflow, from container queries to the :has() selector.
+tags:
+  - CSS
+  - Web Development
+published: true
+---
+
+CSS has evolved dramatically in recent years. Here are the techniques I use most frequently in my daily work.
+
+## CSS Custom Properties (Variables)
+
+Custom properties have changed how I approach theming entirely:
+
+```css
+:root {
+  --color-primary: #3b82f6;
+  --color-bg: #ffffff;
+  --spacing-unit: 0.25rem;
+}
+
+.button {
+  background: var(--color-primary);
+  padding: calc(var(--spacing-unit) * 4);
+}
+```
+
+The killer feature? They're **reactive**. Change them with JavaScript or media queries, and everything updates:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0a0a0a;
+  }
+}
+```
+
+## Container Queries
+
+Finally, we can style components based on their container's size, not just the viewport:
+
+```css
+.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+  }
+}
+```
+
+This is game-changing for truly reusable components.
+
+## The :has() Selector
+
+The parent selector we've always wanted. Style a parent based on its children:
+
+```css
+/* Style cards that have images differently */
+.card:has(img) {
+  padding: 0;
+}
+
+/* Form validation styling */
+.form-group:has(input:invalid) {
+  --border-color: red;
+}
+```
+
+## Logical Properties
+
+Write CSS that works in any writing direction:
+
+```css
+/* Instead of: */
+margin-left: 1rem;
+padding-right: 2rem;
+
+/* Use: */
+margin-inline-start: 1rem;
+padding-inline-end: 2rem;
+```
+
+This is essential for internationalization.
+
+## Modern Layout Techniques
+
+### Subgrid
+
+Finally, nested grids can align with their parents:
+
+```css
+.parent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.child {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: span 3;
+}
+```
+
+### Gap for Flexbox
+
+No more margin hacks:
+
+```css
+.flex-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+```
+
+## Aspect Ratio
+
+Maintain aspect ratios without padding hacks:
+
+```css
+.video-container {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+```
+
+## Conclusion
+
+Modern CSS is incredibly powerful. These techniques have simplified my code, reduced JavaScript dependencies, and made responsive design more intuitive.
+
+The browser support for these features is excellent now. If you haven't explored them yet, I encourage you to give them a try in your next project.

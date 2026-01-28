@@ -1,0 +1,102 @@
+---
+title: Building Accessible Components from Scratch
+date: 2024-01-15
+summary: Learn how to create truly accessible UI components that work for everyone, including proper ARIA attributes, keyboard navigation, and focus management.
+tags:
+  - Accessibility
+  - React
+  - Best Practices
+published: true
+---
+
+Building accessible components isn't just about compliance—it's about creating experiences that work for everyone. In this post, I'll share the patterns I use when building UI components from scratch.
+
+## Why Accessibility Matters
+
+The web is for everyone. When we build inaccessible interfaces, we exclude people with disabilities from using our products. This isn't just a moral issue; it's also a legal and business one.
+
+Consider these facts:
+- Over 1 billion people globally have some form of disability
+- Accessible sites rank better in search engines
+- Accessible code is often cleaner and more maintainable
+
+## The Foundation: Semantic HTML
+
+Before reaching for ARIA, always start with semantic HTML. Native HTML elements come with built-in accessibility:
+
+```tsx
+// ❌ Avoid: div soup
+<div onClick={handleClick}>Click me</div>
+
+// ✅ Better: semantic HTML
+<button onClick={handleClick}>Click me</button>
+```
+
+Native buttons give you:
+- Keyboard activation (Enter and Space)
+- Focus management
+- Screen reader announcements
+- Form submission behavior
+
+## Keyboard Navigation
+
+Every interactive element should be keyboard accessible. Here's a pattern I use for custom components:
+
+```tsx
+function CustomButton({ onClick, children }) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick?.();
+    }
+  };
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+    >
+      {children}
+    </div>
+  );
+}
+```
+
+## Focus Management
+
+When building modals, dropdowns, or other overlays, focus management is crucial:
+
+1. **Trap focus** within the modal while it's open
+2. **Return focus** to the trigger element when closed
+3. **Move focus** to the first focusable element when opened
+
+```tsx
+useEffect(() => {
+  if (isOpen) {
+    // Store the currently focused element
+    previousFocusRef.current = document.activeElement;
+    
+    // Move focus to the modal
+    modalRef.current?.focus();
+  } else {
+    // Return focus when closing
+    previousFocusRef.current?.focus();
+  }
+}, [isOpen]);
+```
+
+## Testing Your Components
+
+Always test with:
+- Keyboard only (no mouse)
+- Screen readers (VoiceOver, NVDA)
+- Browser accessibility tools
+- Automated tools like axe or Lighthouse
+
+## Conclusion
+
+Accessibility isn't an afterthought—it's a core part of building quality software. Start with semantic HTML, add ARIA only when needed, ensure keyboard accessibility, and test with real assistive technologies.
+
+The extra effort is worth it. You'll build better products that work for everyone.

@@ -1,0 +1,307 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   These are dynamically updated by the ThemeProvider based on active theme.
+   ============================================================================ */
+
+:root {
+  /* Colors - defaults (overridden by theme provider) */
+  --bg: #ffffff;
+  --bg-secondary: #f8fafc;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --primary: #3b82f6;
+  --primary-fg: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-fg: #0f172a;
+  --accent: #8b5cf6;
+  --accent-fg: #ffffff;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --card-fg: #0f172a;
+  --muted: #f1f5f9;
+  --muted-fg: #64748b;
+  
+  /* Effects */
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+  
+  /* Typography */
+  --text-scale: 1;
+  --heading-scale: 1;
+  --letter-spacing: 0;
+  --heading-letter-spacing: -0.025em;
+  --line-height: 1.6;
+  --heading-weight: 700;
+  
+  /* Fonts - defaults (overridden by theme provider) */
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: ui-monospace, monospace;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+}
+
+/* ============================================================================
+   TAILWIND THEME CONFIGURATION
+   Maps CSS variables to Tailwind's theme for use with utility classes.
+   ============================================================================ */
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--bg);
+  --color-background-secondary: var(--bg-secondary);
+  --color-foreground: var(--fg);
+  --color-foreground-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-fg);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-fg);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-fg);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-fg);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-fg);
+  
+  /* Typography */
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: calc(var(--radius-lg) * 1.5);
+}
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: calc(1rem * var(--text-scale));
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================================
+   TYPOGRAPHY STYLES
+   ============================================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-letter-spacing);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: calc(2.5rem * var(--heading-scale));
+}
+
+h2 {
+  font-size: calc(2rem * var(--heading-scale));
+}
+
+h3 {
+  font-size: calc(1.5rem * var(--heading-scale));
+}
+
+/* Brutalist theme typography overrides */
+[data-theme="brutalist"] h1,
+[data-theme="brutalist"] h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+[data-theme="brutalist"] h3,
+[data-theme="brutalist"] h4,
+[data-theme="brutalist"] h5,
+[data-theme="brutalist"] h6 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+[data-theme="brutalist"] body,
+[data-theme="brutalist"] p,
+[data-theme="brutalist"] li {
+  font-family: var(--font-mono);
+}
+
+/* Minimalist theme - elegant serif headings */
+[data-theme="minimalist"] h1,
+[data-theme="minimalist"] h2 {
+  font-family: var(--font-serif);
+}
+
+/* ============================================================================
+   LINK FOCUS STYLES (Accessibility)
+   ============================================================================ */
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   SELECTION STYLES
+   ============================================================================ */
+
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-fg);
+}
+
+/* ============================================================================
+   SCROLLBAR STYLES
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
+}
+
+/* Brutalist theme - no rounded scrollbar */
+[data-theme="brutalist"] ::-webkit-scrollbar-thumb {
+  border-radius: 0;
+}
+
+/* ============================================================================
+   PROSE STYLES FOR MDX CONTENT
+   ============================================================================ */
+
+.prose {
+  --tw-prose-body: var(--fg);
+  --tw-prose-headings: var(--fg);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--fg);
+  --tw-prose-code: var(--fg);
+  --tw-prose-pre-bg: var(--bg-secondary);
+  --tw-prose-pre-code: var(--fg);
+  --tw-prose-quotes: var(--fg-muted);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-hr: var(--border);
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Border width utilities for neo-brutalism */
+.border-3 {
+  border-width: 3px;
+}
+
+/* ============================================================================
+   ANIMATION UTILITIES
+   ============================================================================ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out;
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
