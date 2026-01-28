@@ -691,13 +691,31 @@ const variantMap: Record<ThemeId, ComponentVariants> = {
   minimalist: minimalistVariants,
 };
 
+// Overload signatures
+export function getVariant<C extends keyof ComponentVariants>(
+  themeId: ThemeId | string,
+  component: C
+): ComponentVariants[C];
 export function getVariant<
   C extends keyof ComponentVariants,
   V extends keyof ComponentVariants[C]
->(themeId: ThemeId, component: C, variant: V): string {
-  const themeVariants = variantMap[themeId] || variantMap.main;
+>(themeId: ThemeId | string, component: C, variant: V): string;
+
+// Implementation
+export function getVariant<
+  C extends keyof ComponentVariants,
+  V extends keyof ComponentVariants[C]
+>(themeId: ThemeId | string, component: C, variant?: V): string | ComponentVariants[C] {
+  const themeVariants = variantMap[themeId as ThemeId] || variantMap.main;
   const componentVariants = themeVariants[component];
-  return (componentVariants[variant] as string) || '';
+  
+  // If variant is provided, return the specific variant string
+  if (variant !== undefined) {
+    return (componentVariants[variant] as string) || '';
+  }
+  
+  // Otherwise return the entire component variants object
+  return componentVariants;
 }
 
 export type { ComponentVariants };
