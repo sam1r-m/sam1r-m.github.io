@@ -4,36 +4,35 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Home } from 'lucide-react'
 import { Button } from '@/components/ui'
-import { useTheme } from '@/themes/theme-provider'
-import { cn, getSpringConfig } from '@/lib/utils'
+import { useTheme } from '@/themes'
+import { cn } from '@/lib/utils'
 
 export default function NotFound() {
-  const { theme } = useTheme()
-  const springConfig = getSpringConfig(theme)
+  const { themeId } = useTheme()
   
   return (
     <div className="min-h-[60vh] flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={springConfig}
+        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         className="text-center px-4"
       >
         <h1 className={cn(
           'text-8xl md:text-9xl font-bold mb-4',
-          theme === 'brutalist' && 'font-serif',
-          theme === 'minimalist' && 'font-serif'
+          themeId === 'brutalist' && 'font-serif',
+          themeId === 'minimalist' && 'font-serif'
         )}>
           404
         </h1>
         <h2 className={cn(
           'text-2xl md:text-3xl font-semibold mb-4',
-          theme === 'brutalist' && 'font-mono uppercase tracking-wide'
+          themeId === 'brutalist' && 'font-mono uppercase tracking-wide'
         )}>
           Page Not Found
         </h2>
-        <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-          The page you're looking for doesn't exist or has been moved.
+        <p className="text-[var(--fg-muted)] mb-8 max-w-md mx-auto">
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <Link href="/">
           <Button>

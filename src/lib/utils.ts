@@ -10,6 +10,28 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
+ * Get spring animation config based on theme
+ */
+export function getSpringConfig(theme: string) {
+  switch (theme) {
+    case 'brutalist':
+      return { type: 'tween' as const, duration: 0.1 };
+    case 'neo-brutalism':
+      return { type: 'spring' as const, stiffness: 200, damping: 12 };
+    case 'minimalist':
+      return { type: 'tween' as const, duration: 0.4, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] };
+    default:
+      return { type: 'spring' as const, stiffness: 300, damping: 30 };
+  }
+}
+
+/**
+ * Get variant classes for a component based on theme
+ * Re-exported from themes/variants for convenience
+ */
+export { getVariant } from '@/themes/variants';
+
+/**
  * Format a date string for display
  */
 export function formatDate(date: string | Date): string {
