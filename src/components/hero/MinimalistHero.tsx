@@ -133,7 +133,7 @@ export function MinimalistHero() {
           </Link>
           <Link href="/journal" className="text-muted-foreground hover:text-foreground transition-colors duration-300">
             <span className="border-b border-transparent hover:border-current pb-1">
-              Read Journal
+              Read Substack
             </span>
           </Link>
         </motion.div>

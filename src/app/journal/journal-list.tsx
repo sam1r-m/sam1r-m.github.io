@@ -50,7 +50,7 @@ export function JournalList({ posts, tags }: JournalListProps) {
     <Section>
       {/* Header */}
       <div className="mb-12">
-        <Heading as="h1">Journal</Heading>
+        <Heading as="h1">Substack</Heading>
         <p className="mt-4 text-lg text-[var(--fg-muted)] max-w-2xl">
           Thoughts on code, design, and the craft of building software.
           Writing helps me learn and hopefully helps others too.

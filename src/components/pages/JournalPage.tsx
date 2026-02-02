@@ -32,7 +32,7 @@ export function JournalPage({ posts }: JournalPageProps) {
   return (
     <div className="py-section container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
       <SectionHeader subtitle="Thoughts on development, design, and building for the web.">
-        Journal
+        Substack
       </SectionHeader>
       
       {/* Tags filter */}

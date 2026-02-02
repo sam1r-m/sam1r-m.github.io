@@ -7,6 +7,13 @@ import {
   DM_Sans,
   Outfit,
   Cormorant,
+  // Fun fonts for name animation
+  Special_Elite,
+  Bebas_Neue,
+  Permanent_Marker,
+  Playfair_Display,
+  Righteous,
+  Abril_Fatface,
 } from 'next/font/google';
 
 /**
@@ -76,6 +83,49 @@ export const cormorant = Cormorant({
   display: 'swap',
 });
 
+// Fun display fonts for name animation
+export const specialElite = Special_Elite({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-special-elite',
+  display: 'swap',
+});
+
+export const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bebas-neue',
+  display: 'swap',
+});
+
+export const permanentMarker = Permanent_Marker({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-permanent-marker',
+  display: 'swap',
+});
+
+export const playfairDisplay = Playfair_Display({
+  weight: ['400', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-playfair-display',
+  display: 'swap',
+});
+
+export const righteous = Righteous({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-righteous',
+  display: 'swap',
+});
+
+export const abrilFatface = Abril_Fatface({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-abril-fatface',
+  display: 'swap',
+});
+
 /**
  * Combined font variable class string
  * Apply this to the html element to make all font CSS variables available
@@ -89,4 +139,11 @@ export const fontVariables = [
   dmSans.variable,
   outfit.variable,
   cormorant.variable,
+  // Fun fonts
+  specialElite.variable,
+  bebasNeue.variable,
+  permanentMarker.variable,
+  playfairDisplay.variable,
+  righteous.variable,
+  abrilFatface.variable,
 ].join(' ');

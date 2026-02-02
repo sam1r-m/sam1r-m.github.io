@@ -48,7 +48,7 @@ export function PostWrapper({ post, children }: PostWrapperProps) {
               className="inline-flex items-center gap-2 text-sm text-[var(--fg-muted)] hover:text-[var(--fg)] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Journal
+              Back to Substack
             </NextLink>
           </motion.div>
 

@@ -66,34 +66,45 @@ type ComponentVariants = {
 const mainVariants: ComponentVariants = {
   button: {
     primary: `
-      bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]
+      relative isolate
       text-white font-medium
-      rounded-[var(--radius)] px-6 py-2.5
+      rounded-2xl px-6 py-2.5
       transition-all duration-300 ease-out
-      hover:opacity-90 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]
+      hover:scale-[1.02]
       active:scale-[0.98]
       focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 focus:ring-offset-2 focus:ring-offset-[var(--bg)]
+      before:absolute before:inset-0 before:rounded-2xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.4),inset_0_0_3px_1px_rgba(255,255,255,0.2)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-2xl after:-z-10
+      after:backdrop-blur-[30px] after:bg-[rgba(99,102,241,0.4)]
     `,
     secondary: `
-      bg-white/10 backdrop-blur-md text-[var(--fg)]
-      border border-white/20
-      rounded-[var(--radius)] px-6 py-2.5 font-medium
+      relative isolate
+      text-white/90 font-medium
+      rounded-2xl px-6 py-2.5
       transition-all duration-300 ease-out
-      hover:bg-white/15 hover:border-white/30
+      hover:scale-[1.02]
       active:scale-[0.98]
       focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-[var(--bg)]
+      before:absolute before:inset-0 before:rounded-2xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.25),inset_0_0_2px_1px_rgba(255,255,255,0.15)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-2xl after:-z-10
+      after:backdrop-blur-[30px] after:bg-white/[0.08]
     `,
     ghost: `
       bg-transparent text-[var(--fg)]
-      rounded-[var(--radius)] px-6 py-2.5 font-medium
+      rounded-2xl px-6 py-2.5 font-medium
       transition-all duration-300 ease-out
       hover:bg-white/10
       focus:outline-none focus:ring-2 focus:ring-white/20
     `,
     outline: `
-      bg-transparent text-[var(--fg)]
+      relative isolate
+      text-[var(--fg)] font-medium
+      rounded-2xl px-6 py-2.5
       border border-white/20
-      rounded-[var(--radius)] px-6 py-2.5 font-medium
       transition-all duration-300 ease-out
       hover:bg-white/10 hover:border-white/30
       focus:outline-none focus:ring-2 focus:ring-white/20
@@ -120,31 +131,52 @@ const mainVariants: ComponentVariants = {
   },
   card: {
     default: `
-      bg-white/5 backdrop-blur-xl text-[var(--card-fg)]
-      rounded-[var(--radius-lg)] p-6
-      border border-white/10
+      relative isolate
+      text-[var(--card-fg)]
+      rounded-2xl p-6
+      before:absolute before:inset-0 before:rounded-2xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.2),inset_0_0_2px_1px_rgba(255,255,255,0.1)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-2xl after:-z-10
+      after:backdrop-blur-[40px] after:bg-white/[0.05]
     `,
     elevated: `
-      bg-white/5 backdrop-blur-xl text-[var(--card-fg)]
-      rounded-[var(--radius-lg)] p-6
-      border border-white/10
+      relative isolate
+      text-[var(--card-fg)]
+      rounded-2xl p-6
       shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]
+      before:absolute before:inset-0 before:rounded-2xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.25),inset_0_0_2px_1px_rgba(255,255,255,0.15)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-2xl after:-z-10
+      after:backdrop-blur-[40px] after:bg-white/[0.06]
     `,
     interactive: `
-      bg-white/5 backdrop-blur-xl text-[var(--card-fg)]
-      rounded-[var(--radius-lg)] p-6
-      border border-white/10
+      relative isolate
+      text-[var(--card-fg)]
+      rounded-2xl p-6
       transition-all duration-300 ease-out
-      hover:bg-white/10 hover:border-white/20
       hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]
+      before:absolute before:inset-0 before:rounded-2xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.2),inset_0_0_2px_1px_rgba(255,255,255,0.1)]
+      before:pointer-events-none before:transition-all before:duration-300
+      hover:before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.3),inset_0_0_3px_1px_rgba(255,255,255,0.2)]
+      after:absolute after:inset-0 after:rounded-2xl after:-z-10
+      after:backdrop-blur-[40px] after:bg-white/[0.05] after:transition-all after:duration-300
+      hover:after:bg-white/[0.08]
     `,
   },
   badge: {
     default: `
+      relative isolate
       inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      bg-white/10 backdrop-blur-md text-[var(--fg-muted)]
-      border border-white/10
+      text-[var(--fg-muted)]
+      before:absolute before:inset-0 before:rounded-full before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.15),inset_0_0_1px_1px_rgba(255,255,255,0.1)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-full after:-z-10
+      after:backdrop-blur-[20px] after:bg-white/[0.06]
     `,
     primary: `
       inline-flex items-center px-3 py-1
@@ -153,10 +185,15 @@ const mainVariants: ComponentVariants = {
       text-white
     `,
     secondary: `
+      relative isolate
       inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      bg-white/10 backdrop-blur-md text-[var(--fg)]
-      border border-white/10
+      text-[var(--fg)]
+      before:absolute before:inset-0 before:rounded-full before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.2),inset_0_0_1px_1px_rgba(255,255,255,0.1)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-full after:-z-10
+      after:backdrop-blur-[20px] after:bg-white/[0.08]
     `,
     accent: `
       inline-flex items-center px-3 py-1
@@ -172,30 +209,46 @@ const mainVariants: ComponentVariants = {
   },
   input: {
     default: `
+      relative isolate
       w-full px-4 py-2.5
-      bg-white/5 backdrop-blur-md text-[var(--fg)]
-      border border-white/10
-      rounded-[var(--radius)]
+      text-[var(--fg)]
+      rounded-xl
       transition-all duration-300
-      focus:outline-none focus:border-[var(--primary)]/50 focus:bg-white/10
+      focus:outline-none
       placeholder:text-[var(--fg-muted)]
+      before:absolute before:inset-0 before:rounded-xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.15),inset_0_0_1px_1px_rgba(255,255,255,0.1)]
+      before:pointer-events-none before:transition-all before:duration-300
+      focus:before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.25),inset_0_0_2px_1px_rgba(255,255,255,0.15)]
+      after:absolute after:inset-0 after:rounded-xl after:-z-10
+      after:backdrop-blur-[20px] after:bg-white/[0.05] after:transition-all after:duration-300
+      focus:after:bg-white/[0.08]
     `,
   },
   nav: {
     container: `
-      bg-[var(--bg)]/80 backdrop-blur-xl
-      border-b border-white/10
+      relative isolate
+      before:absolute before:inset-0 before:z-10
+      before:shadow-[inset_0_-1px_0px_rgba(255,255,255,0.1)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:-z-10
+      after:backdrop-blur-[40px] after:bg-[var(--bg)]/80
     `,
     item: `
       text-[var(--fg-muted)] font-medium px-3 py-2
       transition-colors duration-300
       hover:text-[var(--fg)]
-      rounded-[var(--radius)]
+      rounded-xl
     `,
     itemActive: `
+      relative isolate
       text-[var(--fg)] font-medium px-3 py-2
-      bg-white/10 backdrop-blur-md
-      rounded-[var(--radius)]
+      rounded-xl
+      before:absolute before:inset-0 before:rounded-xl before:z-10
+      before:shadow-[inset_1px_1px_0px_rgba(255,255,255,0.15),inset_0_0_1px_1px_rgba(255,255,255,0.1)]
+      before:pointer-events-none
+      after:absolute after:inset-0 after:rounded-xl after:-z-10
+      after:backdrop-blur-[20px] after:bg-white/[0.1]
     `,
   },
   section: {

@@ -99,9 +99,37 @@ export interface Theme {
 const mainTheme: Theme = {
   id: 'main',
   label: 'Main',
-  description: 'Dark, modern design with frosted glass and gradients',
+  description: 'Modern design with frosted glass and gradients',
   tokens: {
-    // Dark theme by default - Cohere/Apple inspired
+    // Light mode - clean, bright with subtle glass effects
+    '--bg': '#fafafa',
+    '--bg-secondary': '#f4f4f5',
+    '--fg': '#18181b',
+    '--fg-muted': '#71717a',
+    '--primary': '#6366f1',
+    '--primary-fg': '#ffffff',
+    '--secondary': 'rgba(0, 0, 0, 0.05)',
+    '--secondary-fg': '#18181b',
+    '--accent': '#a855f7',
+    '--accent-fg': '#ffffff',
+    '--border': 'rgba(0, 0, 0, 0.1)',
+    '--card': 'rgba(255, 255, 255, 0.8)',
+    '--card-fg': '#18181b',
+    '--muted': 'rgba(0, 0, 0, 0.04)',
+    '--muted-fg': '#71717a',
+    '--shadow': '0 1px 3px rgba(0, 0, 0, 0.1)',
+    '--shadow-lg': '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
+    '--radius': '0.75rem',
+    '--radius-lg': '1rem',
+    '--text-scale': '1',
+    '--heading-scale': '1',
+    '--letter-spacing': '0',
+    '--heading-letter-spacing': '-0.03em',
+    '--line-height': '1.6',
+    '--heading-weight': '600',
+  },
+  darkTokens: {
+    // Dark mode - Cohere/Apple inspired with liquid glass
     '--bg': '#050505',
     '--bg-secondary': '#0a0a0a',
     '--fg': '#fafafa',
@@ -119,14 +147,6 @@ const mainTheme: Theme = {
     '--muted-fg': '#71717a',
     '--shadow': '0 0 0 1px rgba(255, 255, 255, 0.05)',
     '--shadow-lg': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-    '--radius': '0.75rem',
-    '--radius-lg': '1rem',
-    '--text-scale': '1',
-    '--heading-scale': '1',
-    '--letter-spacing': '0',
-    '--heading-letter-spacing': '-0.03em',
-    '--line-height': '1.6',
-    '--heading-weight': '600',
   },
   fonts: {
     '--font-sans': 'var(--font-inter)',
@@ -145,7 +165,7 @@ const mainTheme: Theme = {
     hover: { scale: 1.02, y: -2 },
   },
   features: {
-    supportsDarkMode: false, // Already dark by default
+    supportsDarkMode: true,
     hasAnimatedHero: true,
     usesShadows: true,
     usesGradients: true,

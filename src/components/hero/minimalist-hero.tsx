@@ -151,7 +151,7 @@ export function MinimalistHero() {
 
             <NextLink href="/journal" className="group">
               <span className="flex items-center gap-3 text-[var(--fg)]">
-                <span className="text-base font-medium">Journal</span>
+                <span className="text-base font-medium">Substack</span>
                 <motion.span
                   className="inline-block"
                   whileHover={prefersReducedMotion ? {} : { x: 3, y: 3 }}

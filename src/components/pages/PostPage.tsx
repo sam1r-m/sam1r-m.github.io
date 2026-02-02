@@ -69,7 +69,7 @@ export function PostPage({ post }: PostPageProps) {
         <Link href="/journal">
           <Button variant="ghost" size="sm" className="group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            Back to Journal
+            Back to Substack
           </Button>
         </Link>
       </motion.div>

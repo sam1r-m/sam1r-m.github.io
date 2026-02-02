@@ -3,11 +3,13 @@
 import { motion } from 'framer-motion'
 import { Sun, Moon } from 'lucide-react'
 import { cn, getSpringConfig } from '@/lib/utils'
-import { useTheme } from '@/themes/theme-provider'
+import { useTheme } from '@/themes'
 
 export function DarkModeToggle() {
-  const { theme, isDark, toggleDark, supportsDarkMode } = useTheme()
-  const springConfig = getSpringConfig(theme)
+  const { theme, colorMode, toggleColorMode } = useTheme()
+  const springConfig = getSpringConfig(theme.id)
+  const supportsDarkMode = theme.features.supportsDarkMode
+  const isDark = colorMode === 'dark'
   
   if (!supportsDarkMode) {
     return null
@@ -15,7 +17,7 @@ export function DarkModeToggle() {
   
   return (
     <motion.button
-      onClick={toggleDark}
+      onClick={toggleColorMode}
       className={cn(
         'p-2 rounded-theme border border-border bg-background hover:bg-muted transition-colors',
         'relative overflow-hidden'

@@ -278,8 +278,70 @@ button:focus-visible,
   animation: marquee 20s linear infinite;
 }
 
-/* Glassmorphism Utilities */
+/* Apple Liquid Glass Utilities */
 
+.liquid-glass {
+  position: relative;
+  isolation: isolate;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  overflow: hidden;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255, 255, 255, 0.3),
+    inset 0 0 2px 1px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Subtle liquid glass variant */
+.liquid-glass-subtle::before {
+  box-shadow: 
+    inset 1px 1px 0px rgba(255, 255, 255, 0.2),
+    inset 0 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.liquid-glass-subtle::after {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Strong liquid glass variant */
+.liquid-glass-strong::before {
+  box-shadow: 
+    inset 2px 2px 0px rgba(255, 255, 255, 0.4),
+    inset 0 0 3px 1px rgba(255, 255, 255, 0.3);
+}
+
+.liquid-glass-strong::after {
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Primary colored liquid glass */
+.liquid-glass-primary::after {
+  background: rgba(99, 102, 241, 0.25);
+}
+
+/* Legacy glassmorphism for backwards compatibility */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
@@ -319,11 +381,20 @@ button:focus-visible,
 }
 
 /* Main theme specific styles */
-[data-theme="main"] {
+[data-theme="main"][data-color-mode="dark"] {
   color-scheme: dark;
 }
 
-[data-theme="main"] ::selection {
+[data-theme="main"][data-color-mode="light"] {
+  color-scheme: light;
+}
+
+[data-theme="main"][data-color-mode="dark"] ::selection {
   background-color: rgba(99, 102, 241, 0.4);
   color: #ffffff;
+}
+
+[data-theme="main"][data-color-mode="light"] ::selection {
+  background-color: rgba(99, 102, 241, 0.3);
+  color: #18181b;
 }

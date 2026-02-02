@@ -5,7 +5,7 @@ import NextLink from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn, getVariant, getSpringConfig } from '@/lib/utils'
-import { useTheme } from '@/themes/theme-provider'
+import { useTheme } from '@/themes'
 import { ThemeSelector } from './theme-selector'
 import { DarkModeToggle } from './dark-mode-toggle'
 
@@ -13,15 +13,16 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
   { href: '/resume', label: 'Resume' },
-  { href: '/journal', label: 'Journal' },
+  { href: '/journal', label: 'Substack' },
 ]
 
 export function Navbar() {
-  const { theme, supportsDarkMode } = useTheme()
+  const { theme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const supportsDarkMode = theme.features.supportsDarkMode
   
-  const navVariant = getVariant(theme, 'nav')
-  const springConfig = getSpringConfig(theme)
+  const navVariant = getVariant(theme.id, 'nav')
+  const springConfig = getSpringConfig(theme.id)
   
   return (
     <header className={cn('sticky top-0 z-50', navVariant)}>
@@ -109,8 +110,8 @@ export function Navbar() {
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const { theme } = useTheme()
-  const linkVariant = getVariant(theme, 'link')
-  const springConfig = getSpringConfig(theme)
+  const linkVariant = getVariant(theme.id, 'link')
+  const springConfig = getSpringConfig(theme.id)
   
   return (
     <NextLink href={href}>
@@ -118,8 +119,8 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
         className={cn(
           'text-sm font-medium text-muted-foreground hover:text-foreground transition-colors',
           // Override link styles for nav
-          theme === 'brutalist' && 'uppercase tracking-wide font-mono',
-          theme === 'minimalist' && 'tracking-wide'
+          theme.id === 'brutalist' && 'uppercase tracking-wide font-mono',
+          theme.id === 'minimalist' && 'tracking-wide'
         )}
         whileHover={{ y: -1 }}
         transition={springConfig}
