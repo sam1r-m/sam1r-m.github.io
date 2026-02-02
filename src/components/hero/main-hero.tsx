@@ -1,13 +1,13 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, type Variants, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useReducedMotion, useTheme } from '@/themes';
 import { cn } from '@/lib/utils';
 import NextLink from 'next/link';
 
-// Font configurations for cycling
+// Font configurations for auto-cycling (every 5 seconds)
 const FONT_STYLES = [
   { 
     name: 'Modern', 
@@ -55,6 +55,20 @@ const FONT_STYLES = [
     name: 'Display', 
     fontFamily: 'var(--font-abril-fatface)', 
     fontWeight: 400,
+    fontStyle: 'normal',
+    letterSpacing: '0em',
+  },
+  { 
+    name: 'Geometric', 
+    fontFamily: 'var(--font-space-grotesk)', 
+    fontWeight: 700,
+    fontStyle: 'normal',
+    letterSpacing: '-0.02em',
+  },
+  { 
+    name: 'Serif', 
+    fontFamily: 'var(--font-cormorant)', 
+    fontWeight: 700,
     fontStyle: 'normal',
     letterSpacing: '0em',
   },
@@ -120,213 +134,112 @@ function TypewriterText({
   );
 }
 
-// Font-cycling name component
-function FontCyclingName({ children }: { children: string }) {
+// Auto-cycling font name component (changes every 5 seconds)
+function AutoCyclingName({ children }: { children: string }) {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const { colorMode, theme } = useTheme();
   const isDark = colorMode === 'dark' && theme.features.supportsDarkMode;
 
-  const startCycling = useCallback(() => {
+  // Auto-cycle every 5 seconds
+  useEffect(() => {
     if (prefersReducedMotion) return;
     
-    intervalRef.current = setInterval(() => {
+    const interval = setInterval(() => {
       setCurrentFontIndex((prev) => (prev + 1) % FONT_STYLES.length);
-    }, 150);
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, [prefersReducedMotion]);
-
-  const stopCycling = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  }, []);
-
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-    startCycling();
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-    stopCycling();
-    // Reset to default font
-    setCurrentFontIndex(0);
-  };
-
-  useEffect(() => {
-    return () => stopCycling();
-  }, [stopCycling]);
 
   const currentFont = FONT_STYLES[currentFontIndex];
 
   return (
-    <motion.span
-      className="relative inline-block cursor-pointer select-none"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-    >
-      {/* Glow effect on hover */}
-      <motion.span
-        className="absolute inset-0 blur-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovering ? 0.5 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
-      
+    <span className="relative inline-block">
       {/* Main text with gradient */}
-      <span 
-        className={cn(
-          'relative z-10',
-          'bg-gradient-to-r bg-clip-text text-transparent',
-          isDark 
-            ? 'from-indigo-300 via-purple-300 to-pink-300' 
-            : 'from-indigo-600 via-purple-600 to-pink-600',
-          'transition-colors duration-300',
-          isHovering && (isDark ? 'from-indigo-200 via-purple-200 to-pink-200' : 'from-indigo-500 via-purple-500 to-pink-500')
-        )}
-        style={{
-          fontFamily: currentFont.fontFamily,
-          fontWeight: currentFont.fontWeight,
-          fontStyle: currentFont.fontStyle,
-          letterSpacing: currentFont.letterSpacing,
-          transition: 'font-family 0.1s ease, font-weight 0.1s ease, letter-spacing 0.1s ease',
-        }}
-      >
-        {children}
-      </span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={currentFontIndex}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className={cn(
+            'relative z-10 inline-block',
+            'bg-gradient-to-r bg-clip-text text-transparent',
+            isDark 
+              ? 'from-indigo-300 via-purple-300 to-pink-300' 
+              : 'from-indigo-600 via-purple-600 to-pink-600',
+          )}
+          style={{
+            fontFamily: currentFont.fontFamily,
+            fontWeight: currentFont.fontWeight,
+            fontStyle: currentFont.fontStyle,
+            letterSpacing: currentFont.letterSpacing,
+          }}
+        >
+          {children}
+        </motion.span>
+      </AnimatePresence>
       
       {/* Font name indicator */}
-      <motion.span
-        className={cn(
-          "absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-mono whitespace-nowrap",
-          isDark ? "text-white/50" : "text-black/50"
-        )}
-        initial={{ opacity: 0, y: -5 }}
-        animate={{ opacity: isHovering ? 1 : 0, y: isHovering ? 0 : -5 }}
-        transition={{ duration: 0.2 }}
-      >
-        {currentFont.name}
-      </motion.span>
-    </motion.span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={currentFont.name}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className={cn(
+            "absolute -bottom-10 left-1/2 -translate-x-1/2 text-sm font-mono whitespace-nowrap",
+            isDark ? "text-white/40" : "text-black/40"
+          )}
+        >
+          {currentFont.name}
+        </motion.span>
+      </AnimatePresence>
+    </span>
   );
 }
 
-// Liquid Glass SVG Filters
-function LiquidGlassFilters() {
-  return (
-    <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-      <defs>
-        {/* Main container glass effect */}
-        <filter id="liquid-glass" x="-50%" y="-50%" width="200%" height="200%">
-          <feTurbulence 
-            type="fractalNoise" 
-            baseFrequency="0.01 0.01" 
-            numOctaves="3" 
-            seed="5" 
-            result="noise" 
-          />
-          <feGaussianBlur in="noise" stdDeviation="1" result="blur" />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="blur" 
-            scale="30" 
-            xChannelSelector="R" 
-            yChannelSelector="G" 
-          />
-        </filter>
-
-        {/* Subtle glass for buttons */}
-        <filter id="liquid-glass-subtle" x="-50%" y="-50%" width="200%" height="200%">
-          <feTurbulence 
-            type="fractalNoise" 
-            baseFrequency="0.015 0.015" 
-            numOctaves="2" 
-            seed="10" 
-            result="noise" 
-          />
-          <feGaussianBlur in="noise" stdDeviation="0.5" result="blur" />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="blur" 
-            scale="15" 
-            xChannelSelector="R" 
-            yChannelSelector="G" 
-          />
-        </filter>
-
-        {/* Card glass effect */}
-        <filter id="liquid-glass-card" x="-50%" y="-50%" width="200%" height="200%">
-          <feTurbulence 
-            type="fractalNoise" 
-            baseFrequency="0.008 0.008" 
-            numOctaves="2" 
-            seed="42" 
-            result="noise" 
-          />
-          <feGaussianBlur in="noise" stdDeviation="0.8" result="blur" />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="blur" 
-            scale="20" 
-            xChannelSelector="R" 
-            yChannelSelector="G" 
-          />
-        </filter>
-      </defs>
-    </svg>
-  );
-}
-
-// Liquid Glass Card Component
-function LiquidGlassCard({ 
+// Clean Glass Card Component (CSS-only, no SVG filters)
+function GlassCard({ 
   children, 
   className,
-  intensity = 'normal'
 }: { 
   children: React.ReactNode; 
   className?: string;
-  intensity?: 'subtle' | 'normal' | 'strong';
 }) {
   const { colorMode, theme } = useTheme();
   const isDark = colorMode === 'dark' && theme.features.supportsDarkMode;
-  const filterId = intensity === 'subtle' ? 'liquid-glass-subtle' : 
-                   intensity === 'strong' ? 'liquid-glass' : 'liquid-glass-card';
   
   return (
-    <div className={cn('relative', className)}>
-      {/* Inner glow layer */}
+    <div 
+      className={cn(
+        'relative rounded-2xl overflow-hidden',
+        'backdrop-blur-xl',
+        isDark 
+          ? 'bg-white/[0.08] border border-white/[0.15] shadow-[0_8px_32px_rgba(0,0,0,0.3)]' 
+          : 'bg-white/70 border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
+        className
+      )}
+    >
+      {/* Subtle gradient overlay for depth */}
       <div 
-        className="absolute inset-0 rounded-[inherit] overflow-hidden z-10"
-        style={{
-          boxShadow: isDark 
-            ? 'inset 1px 1px 0px rgba(255, 255, 255, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.2)'
-            : 'inset 1px 1px 0px rgba(255, 255, 255, 0.8), inset 0 0 2px 1px rgba(0, 0, 0, 0.05)',
-        }}
+        className={cn(
+          "absolute inset-0 pointer-events-none",
+          isDark 
+            ? "bg-gradient-to-br from-white/[0.08] via-transparent to-transparent"
+            : "bg-gradient-to-br from-white/50 via-transparent to-transparent"
+        )}
       />
-      {/* Liquid glass refraction layer */}
-      <div 
-        className="absolute inset-0 rounded-[inherit] overflow-hidden -z-10"
-        style={{
-          backdropFilter: 'blur(40px)',
-          WebkitBackdropFilter: 'blur(40px)',
-          filter: `url(#${filterId})`,
-          isolation: 'isolate',
-          backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.7)',
-        }}
-      />
-      {/* Content */}
-      <div className="relative z-20">{children}</div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
 
-// Liquid Glass Button Component
-function LiquidGlassButton({ 
+// Clean Glass Button Component
+function GlassButton({ 
   children, 
   className,
   variant = 'default'
@@ -340,35 +253,23 @@ function LiquidGlassButton({
   const isPrimary = variant === 'primary';
   
   return (
-    <div className={cn('relative group', className)}>
-      {/* Inner glow */}
-      <div 
-        className="absolute inset-0 rounded-2xl overflow-hidden z-10 pointer-events-none"
-        style={{
-          boxShadow: isPrimary 
-            ? 'inset 1px 1px 0px rgba(255, 255, 255, 0.4), inset 0 0 3px 1px rgba(255, 255, 255, 0.2)'
-            : isDark
-              ? 'inset 1px 1px 0px rgba(255, 255, 255, 0.25), inset 0 0 2px 1px rgba(255, 255, 255, 0.15)'
-              : 'inset 1px 1px 0px rgba(255, 255, 255, 0.8), inset 0 0 2px 1px rgba(0, 0, 0, 0.05)',
-        }}
-      />
-      {/* Liquid glass layer */}
-      <div 
-        className="absolute inset-0 rounded-2xl overflow-hidden -z-10"
-        style={{
-          backdropFilter: 'blur(30px)',
-          WebkitBackdropFilter: 'blur(30px)',
-          filter: 'url(#liquid-glass-subtle)',
-          isolation: 'isolate',
-          backgroundColor: isPrimary 
-            ? 'rgba(99, 102, 241, 0.5)' 
-            : isDark 
-              ? 'rgba(255, 255, 255, 0.08)' 
-              : 'rgba(0, 0, 0, 0.05)',
-        }}
-      />
-      {/* Content */}
-      <div className="relative z-20">{children}</div>
+    <div 
+      className={cn(
+        'relative rounded-xl overflow-hidden transition-all duration-300',
+        'backdrop-blur-lg',
+        isPrimary
+          ? 'bg-gradient-to-r from-indigo-500 to-purple-600 shadow-[0_4px_20px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_30px_rgba(99,102,241,0.6)]'
+          : isDark 
+            ? 'bg-white/[0.1] border border-white/[0.2] hover:bg-white/[0.15] hover:border-white/[0.3]' 
+            : 'bg-black/[0.05] border border-black/[0.1] hover:bg-black/[0.08] hover:border-black/[0.15]',
+        className
+      )}
+    >
+      {/* Shine effect for primary button */}
+      {isPrimary && (
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
+      )}
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
@@ -448,9 +349,6 @@ export function MainHero() {
         isDark ? "bg-[#0a0a0a]" : "bg-[#fafafa]"
       )}
     >
-      {/* SVG Filters */}
-      <LiquidGlassFilters />
-
       {/* Animated gradient background */}
       <div className="absolute inset-0 overflow-hidden">
         <GradientOrb
@@ -491,7 +389,7 @@ export function MainHero() {
       <div 
         className={cn(
           "absolute inset-0 pointer-events-none",
-          isDark ? "opacity-[0.015]" : "opacity-[0.03]"
+          isDark ? "opacity-[0.015]" : "opacity-[0.02]"
         )}
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
@@ -519,9 +417,9 @@ export function MainHero() {
           animate="visible"
           className="max-w-5xl mx-auto"
         >
-          {/* Status badge - liquid glass */}
+          {/* Status badge - glass */}
           <motion.div variants={itemVariants} className="flex justify-center mb-6">
-            <LiquidGlassCard intensity="subtle" className="rounded-full">
+            <GlassCard className="rounded-full !rounded-full">
               <div className="px-4 py-2 flex items-center gap-2.5">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -532,10 +430,10 @@ export function MainHero() {
                   isDark ? "text-white/70" : "text-black/70"
                 )}>Open to opportunities</span>
               </div>
-            </LiquidGlassCard>
+            </GlassCard>
           </motion.div>
 
-          {/* Main headline - Typewriter + Font Cycling */}
+          {/* Main headline - Typewriter + Auto Font Cycling */}
           <motion.div variants={itemVariants} className="text-center">
             <h1 className="leading-[1.1]">
               {/* "Hi, I'm" with typewriter effect */}
@@ -546,11 +444,11 @@ export function MainHero() {
                 <TypewriterText text="Hi, I'm" delay={500} />
               </span>
               
-              {/* "SAMIR" - massive with font cycling on hover */}
+              {/* "SAMIR" - massive with auto font cycling */}
               <span 
                 className="block text-[4.5rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] xl:text-[13rem] leading-[0.9]"
               >
-                <FontCyclingName>SAMIR</FontCyclingName>
+                <AutoCyclingName>SAMIR</AutoCyclingName>
               </span>
             </h1>
           </motion.div>
@@ -559,7 +457,7 @@ export function MainHero() {
           <motion.p
             variants={itemVariants}
             className={cn(
-              "mt-8 text-center text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto leading-relaxed font-light",
+              "mt-12 text-center text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto leading-relaxed font-light",
               isDark ? "text-white/40" : "text-black/50"
             )}
           >
@@ -568,7 +466,7 @@ export function MainHero() {
             Data science & analytics
           </motion.p>
 
-          {/* CTA Buttons - liquid glass */}
+          {/* CTA Buttons - glass */}
           <motion.div
             variants={itemVariants}
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
@@ -578,12 +476,12 @@ export function MainHero() {
                 whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
               >
-                <LiquidGlassButton variant="primary" className="cursor-pointer">
+                <GlassButton variant="primary" className="cursor-pointer">
                   <div className="flex items-center gap-2 px-8 py-4 text-white font-medium">
                     View Projects
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </div>
-                </LiquidGlassButton>
+                </GlassButton>
               </motion.div>
             </NextLink>
             
@@ -592,19 +490,19 @@ export function MainHero() {
                 whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
               >
-                <LiquidGlassButton className="cursor-pointer">
+                <GlassButton className="cursor-pointer">
                   <div className={cn(
                     "px-8 py-4 font-medium",
                     isDark ? "text-white/90" : "text-black/80"
                   )}>
                     Resume
                   </div>
-                </LiquidGlassButton>
+                </GlassButton>
               </motion.div>
             </NextLink>
           </motion.div>
 
-          {/* Stats row - liquid glass cards */}
+          {/* Stats row - glass cards */}
           <motion.div
             variants={itemVariants}
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
@@ -615,7 +513,7 @@ export function MainHero() {
               { label: 'Certifications', value: '3' },
               { label: 'Projects', value: '10+' },
             ].map((stat) => (
-              <LiquidGlassCard key={stat.label} className="rounded-2xl">
+              <GlassCard key={stat.label}>
                 <div className="p-5 text-center">
                   <p className={cn(
                     "text-2xl md:text-3xl font-semibold bg-gradient-to-r bg-clip-text text-transparent",
@@ -628,7 +526,7 @@ export function MainHero() {
                     isDark ? "text-white/40" : "text-black/50"
                   )}>{stat.label}</p>
                 </div>
-              </LiquidGlassCard>
+              </GlassCard>
             ))}
           </motion.div>
         </motion.div>
