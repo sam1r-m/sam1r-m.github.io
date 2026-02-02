@@ -1,80 +1,47 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, type Variants, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useReducedMotion, useTheme } from '@/themes';
 import { cn } from '@/lib/utils';
 import NextLink from 'next/link';
 
-// Font configurations for auto-cycling (every 5 seconds)
+// Clean, professional font configurations for auto-cycling
 const FONT_STYLES = [
   { 
-    name: 'Modern', 
     fontFamily: 'var(--font-inter)', 
     fontWeight: 800,
     fontStyle: 'normal',
-    letterSpacing: '-0.03em',
+    letterSpacing: '-0.04em',
   },
   { 
-    name: 'Typewriter', 
-    fontFamily: 'var(--font-special-elite)', 
-    fontWeight: 400,
-    fontStyle: 'normal',
-    letterSpacing: '0.05em',
-  },
-  { 
-    name: 'Bold', 
-    fontFamily: 'var(--font-bebas-neue)', 
-    fontWeight: 400,
-    fontStyle: 'normal',
-    letterSpacing: '0.02em',
-  },
-  { 
-    name: 'Graffiti', 
-    fontFamily: 'var(--font-permanent-marker)', 
-    fontWeight: 400,
-    fontStyle: 'normal',
-    letterSpacing: '0em',
-  },
-  { 
-    name: 'Elegant', 
-    fontFamily: 'var(--font-playfair-display)', 
-    fontWeight: 900,
-    fontStyle: 'italic',
-    letterSpacing: '-0.02em',
-  },
-  { 
-    name: 'Retro', 
-    fontFamily: 'var(--font-righteous)', 
-    fontWeight: 400,
-    fontStyle: 'normal',
-    letterSpacing: '0em',
-  },
-  { 
-    name: 'Display', 
-    fontFamily: 'var(--font-abril-fatface)', 
-    fontWeight: 400,
-    fontStyle: 'normal',
-    letterSpacing: '0em',
-  },
-  { 
-    name: 'Geometric', 
     fontFamily: 'var(--font-space-grotesk)', 
     fontWeight: 700,
     fontStyle: 'normal',
     letterSpacing: '-0.02em',
   },
   { 
-    name: 'Serif', 
-    fontFamily: 'var(--font-cormorant)', 
+    fontFamily: 'var(--font-outfit)', 
     fontWeight: 700,
     fontStyle: 'normal',
-    letterSpacing: '0em',
+    letterSpacing: '-0.02em',
+  },
+  { 
+    fontFamily: 'var(--font-dm-sans)', 
+    fontWeight: 700,
+    fontStyle: 'normal',
+    letterSpacing: '-0.02em',
+  },
+  { 
+    fontFamily: 'var(--font-playfair-display)', 
+    fontWeight: 700,
+    fontStyle: 'normal',
+    letterSpacing: '-0.02em',
   },
 ];
 
-// Typewriter component for initial load
+// Typewriter component for initial load (fixed layout shift)
 function TypewriterText({ 
   text, 
   onComplete,
@@ -85,7 +52,7 @@ function TypewriterText({
   delay?: number;
 }) {
   const [displayedText, setDisplayedText] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
   const prefersReducedMotion = useReducedMotion();
   const { colorMode, theme } = useTheme();
   const isDark = colorMode === 'dark' && theme.features.supportsDarkMode;
@@ -93,7 +60,7 @@ function TypewriterText({
   useEffect(() => {
     if (prefersReducedMotion) {
       setDisplayedText(text);
-      setIsComplete(true);
+      setShowCursor(false);
       onComplete?.();
       return;
     }
@@ -106,7 +73,8 @@ function TypewriterText({
           currentIndex++;
         } else {
           clearInterval(interval);
-          setIsComplete(true);
+          // Keep cursor visible briefly, then fade out
+          setTimeout(() => setShowCursor(false), 500);
           onComplete?.();
         }
       }, 80);
@@ -118,86 +86,120 @@ function TypewriterText({
   }, [text, onComplete, delay, prefersReducedMotion]);
 
   return (
-    <span className="inline-block">
-      {displayedText}
-      {!isComplete && (
-        <motion.span
-          className={cn(
-            "inline-block w-[3px] h-[1em] ml-1 align-middle",
-            isDark ? "bg-white/80" : "bg-black/60"
-          )}
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
-        />
-      )}
+    <span className="inline-flex items-baseline">
+      <span>{displayedText || '\u00A0'}</span>
+      <motion.span
+        className={cn(
+          "inline-block w-[3px] h-[0.9em] ml-1",
+          isDark ? "bg-white/80" : "bg-black/60"
+        )}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: showCursor ? [1, 0, 1] : 0 }}
+        transition={{ 
+          duration: showCursor ? 1 : 0.3,
+          repeat: showCursor ? Infinity : 0,
+          ease: "linear"
+        }}
+      />
     </span>
   );
 }
 
-// Auto-cycling font name component (changes every 5 seconds)
+// Auto-cycling font name with typewriter erase/retype effect
 function AutoCyclingName({ children }: { children: string }) {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState(children);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isErasing, setIsErasing] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const { colorMode, theme } = useTheme();
   const isDark = colorMode === 'dark' && theme.features.supportsDarkMode;
 
-  // Auto-cycle every 5 seconds
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-    
-    const interval = setInterval(() => {
-      setCurrentFontIndex((prev) => (prev + 1) % FONT_STYLES.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [prefersReducedMotion]);
-
   const currentFont = FONT_STYLES[currentFontIndex];
 
-  return (
-    <span className="relative inline-block">
-      {/* Main text with gradient */}
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={currentFontIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className={cn(
-            'relative z-10 inline-block',
-            'bg-gradient-to-r bg-clip-text text-transparent',
-            isDark 
-              ? 'from-indigo-300 via-purple-300 to-pink-300' 
-              : 'from-indigo-600 via-purple-600 to-pink-600',
-          )}
-          style={{
-            fontFamily: currentFont.fontFamily,
-            fontWeight: currentFont.fontWeight,
-            fontStyle: currentFont.fontStyle,
-            letterSpacing: currentFont.letterSpacing,
-          }}
-        >
-          {children}
-        </motion.span>
-      </AnimatePresence>
+  // Typewriter erase and retype effect
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      const interval = setInterval(() => {
+        setCurrentFontIndex((prev) => (prev + 1) % FONT_STYLES.length);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+
+    // Start the cycle after initial display
+    const cycleTimeout = setTimeout(() => {
+      const runCycle = () => {
+        // Start erasing
+        setIsErasing(true);
+        let eraseIndex = children.length;
+        
+        const eraseInterval = setInterval(() => {
+          eraseIndex--;
+          if (eraseIndex >= 0) {
+            setDisplayedText(children.slice(0, eraseIndex));
+          } else {
+            clearInterval(eraseInterval);
+            setIsErasing(false);
+            
+            // Change font
+            setCurrentFontIndex((prev) => (prev + 1) % FONT_STYLES.length);
+            
+            // Start typing
+            setIsTyping(true);
+            let typeIndex = 0;
+            
+            const typeInterval = setInterval(() => {
+              typeIndex++;
+              if (typeIndex <= children.length) {
+                setDisplayedText(children.slice(0, typeIndex));
+              } else {
+                clearInterval(typeInterval);
+                setIsTyping(false);
+                
+                // Wait 5 seconds then repeat
+                setTimeout(runCycle, 5000);
+              }
+            }, 60);
+          }
+        }, 40);
+      };
       
-      {/* Font name indicator */}
-      <AnimatePresence mode="wait">
+      runCycle();
+    }, 5000);
+
+    return () => clearTimeout(cycleTimeout);
+  }, [children, prefersReducedMotion]);
+
+  return (
+    <span className="relative inline-flex items-baseline min-h-[1.1em]">
+      <span
+        className={cn(
+          'bg-gradient-to-r bg-clip-text text-transparent whitespace-nowrap',
+          isDark 
+            ? 'from-indigo-300 via-purple-300 to-pink-300' 
+            : 'from-indigo-600 via-purple-600 to-pink-600',
+        )}
+        style={{
+          fontFamily: currentFont.fontFamily,
+          fontWeight: currentFont.fontWeight,
+          fontStyle: currentFont.fontStyle,
+          letterSpacing: currentFont.letterSpacing,
+        }}
+      >
+        {displayedText || '\u00A0'}
+      </span>
+      
+      {/* Cursor during typing/erasing */}
+      {(isTyping || isErasing) && !prefersReducedMotion && (
         <motion.span
-          key={currentFont.name}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
           className={cn(
-            "absolute -bottom-10 left-1/2 -translate-x-1/2 text-sm font-mono whitespace-nowrap",
-            isDark ? "text-white/40" : "text-black/40"
+            "inline-block w-[4px] h-[0.8em] ml-1",
+            isDark ? "bg-indigo-300" : "bg-indigo-600"
           )}
-        >
-          {currentFont.name}
-        </motion.span>
-      </AnimatePresence>
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+        />
+      )}
     </span>
   );
 }
@@ -434,8 +436,8 @@ export function MainHero() {
           </motion.div>
 
           {/* Main headline - Typewriter + Auto Font Cycling */}
-          <motion.div variants={itemVariants} className="text-center">
-            <h1 className="leading-[1.1]">
+          <motion.div variants={itemVariants} className="text-center overflow-visible">
+            <h1 className="leading-[1.1] overflow-visible">
               {/* "Hi, I'm" with typewriter effect */}
               <span className={cn(
                 "block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-wide mb-2 md:mb-4",
@@ -444,9 +446,9 @@ export function MainHero() {
                 <TypewriterText text="Hi, I'm" delay={500} />
               </span>
               
-              {/* "SAMIR" - massive with auto font cycling */}
+              {/* "SAMIR" - massive with auto font cycling typewriter */}
               <span 
-                className="block text-[4.5rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] xl:text-[13rem] leading-[0.9]"
+                className="block text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] leading-none py-2"
               >
                 <AutoCyclingName>SAMIR</AutoCyclingName>
               </span>
