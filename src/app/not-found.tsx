@@ -19,7 +19,7 @@ export default function NotFound() {
         className="text-center px-4"
       >
         <h1 className={cn(
-          'text-8xl md:text-9xl font-bold mb-4',
+          'text-9xl md:text-[12rem] font-bold mb-4 leading-none',
           themeId === 'brutalist' && 'font-serif',
           themeId === 'minimalist' && 'font-serif'
         )}>
@@ -35,9 +35,9 @@ export default function NotFound() {
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <Link href="/">
-          <Button>
-            <Home size={18} className="mr-2" />
-            Back to Home
+          <Button className="inline-flex items-center gap-2 px-6 py-3">
+            <Home size={18} />
+            <span>Back to Home</span>
           </Button>
         </Link>
       </motion.div>

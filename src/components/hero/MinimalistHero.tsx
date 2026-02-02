@@ -74,7 +74,7 @@ export function MinimalistHero() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-medium tracking-tight"
           >
-            Your Name
+            Samir
           </motion.h1>
         </div>
         
@@ -114,8 +114,8 @@ export function MinimalistHero() {
           transition={{ duration: 0.8, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto mb-12 leading-relaxed"
         >
-          Crafting thoughtful digital experiences with precision and care.
-          Simplicity is the ultimate sophistication.
+          Computational Math @ UWaterloo.
+          Data, code, and everything in between.
         </motion.p>
         
         {/* CTAs - minimal */}

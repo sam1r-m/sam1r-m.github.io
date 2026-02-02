@@ -9,16 +9,16 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Portfolio | Developer & Designer',
-    template: '%s | Portfolio',
+    default: 'Samir | CS Student & Developer',
+    template: '%s | Samir',
   },
-  description: 'Full-stack developer passionate about creating beautiful, performant, and accessible web applications.',
-  keywords: ['developer', 'designer', 'portfolio', 'web development', 'react', 'nextjs'],
-  authors: [{ name: 'Developer' }],
+  description: 'Fourth-year Computational Mathematics student at the University of Waterloo. Data science, analytics, and software development.',
+  keywords: ['developer', 'student', 'portfolio', 'data science', 'math', 'waterloo', 'analytics'],
+  authors: [{ name: 'Samir' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Portfolio',
+    siteName: 'Samir',
   },
   twitter: {
     card: 'summary_large_image',

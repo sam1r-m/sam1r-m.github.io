@@ -1,26 +1,78 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '@/themes';
 import { cn } from '@/lib/utils';
 import NextLink from 'next/link';
 
-/**
- * BrutalistHero
- * 
- * Raw, print-inspired design with:
- * - IBM Plex Mono + Libre Baskerville typography pairing
- * - Kinetic typography with type-shift effects
- * - Scrolling marquee
- * - High contrast, intentional stark aesthetic
- * - No shadows, sharp corners, binary color transitions
- * - Harsh, immediate hover states (no smooth transitions)
- */
+const HERO_TEXT = 'CREATIVE';
+const SUBTITLE_WORDS = ['DEVELOPER', 'STUDENT', 'BUILDER'];
 
-const words = ['DEVELOPER', 'DESIGNER', 'CREATOR', 'BUILDER'];
+// Color palette for background gradient cycling
+const GRADIENT_COLORS = [
+  { from: '#1a1a2e', to: '#16213e' },
+  { from: '#0f0f23', to: '#1a1a3e' },
+  { from: '#1e1e3f', to: '#2d2d5a' },
+  { from: '#141428', to: '#1f1f3d' },
+];
 
-function TypeShift({ words }: { words: string[] }) {
+function SplitText({ text, className }: { text: string; className?: string }) {
+  const prefersReducedMotion = useReducedMotion();
+  
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const letterVariants = {
+    hidden: { 
+      y: 100,
+      opacity: 0,
+      rotateX: -90,
+    },
+    visible: { 
+      y: 0,
+      opacity: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, 0.01, 0.05, 0.95],
+      },
+    },
+  };
+
+  if (prefersReducedMotion) {
+    return <span className={className}>{text}</span>;
+  }
+
+  return (
+    <motion.span
+      className={cn('inline-flex overflow-hidden', className)}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {text.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          variants={letterVariants}
+          className="inline-block"
+          style={{ transformOrigin: 'bottom' }}
+        >
+          {letter === ' ' ? '\u00A0' : letter}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
+function RotatingWord({ words }: { words: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const prefersReducedMotion = useReducedMotion();
 
@@ -29,7 +81,7 @@ function TypeShift({ words }: { words: string[] }) {
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % words.length);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [words.length, prefersReducedMotion]);
 
@@ -38,41 +90,81 @@ function TypeShift({ words }: { words: string[] }) {
   }
 
   return (
-    <span className="relative inline-block overflow-hidden">
-      {words.map((word, index) => (
+    <span className="relative inline-block h-[1.2em] overflow-hidden align-bottom">
+      <AnimatePresence mode="wait">
         <motion.span
-          key={word}
-          className="absolute inset-0"
-          initial={false}
-          animate={{
-            y: index === currentIndex ? 0 : index < currentIndex ? '-100%' : '100%',
-            opacity: index === currentIndex ? 1 : 0,
-          }}
-          transition={{ duration: 0.1 }}
+          key={currentIndex}
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -50, opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0 flex items-center"
         >
-          {word}
+          {words[currentIndex]}
         </motion.span>
-      ))}
+      </AnimatePresence>
       <span className="invisible">{words[0]}</span>
     </span>
   );
 }
 
-function Marquee({ children }: { children: React.ReactNode }) {
+function GradientBackground() {
+  const [colorIndex, setColorIndex] = useState(0);
   const prefersReducedMotion = useReducedMotion();
 
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    
+    const interval = setInterval(() => {
+      setColorIndex((prev) => (prev + 1) % GRADIENT_COLORS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [prefersReducedMotion]);
+
+  const currentColors = GRADIENT_COLORS[colorIndex];
+
   return (
-    <div className="overflow-hidden border-y-2 border-[var(--border)] bg-[var(--fg)] text-[var(--bg)]">
-      <div
-        className={cn(
-          'flex whitespace-nowrap py-3',
-          !prefersReducedMotion && 'animate-marquee'
-        )}
-      >
-        {/* Duplicate content for seamless loop */}
-        <span className="flex items-center gap-8 px-4">{children}</span>
-        <span className="flex items-center gap-8 px-4" aria-hidden>{children}</span>
-      </div>
+    <motion.div
+      className="absolute inset-0 -z-10"
+      animate={{
+        background: `linear-gradient(135deg, ${currentColors.from} 0%, ${currentColors.to} 100%)`,
+      }}
+      transition={{ duration: 3, ease: 'easeInOut' }}
+    />
+  );
+}
+
+function FloatingShapes() {
+  const prefersReducedMotion = useReducedMotion();
+  
+  if (prefersReducedMotion) return null;
+
+  return (
+    <div className="absolute inset-0 -z-5 overflow-hidden pointer-events-none">
+      {/* Floating geometric shapes */}
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-64 h-64 border border-white/10 rotate-45"
+        animate={{ 
+          rotate: [45, 90, 45],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-white/5"
+        animate={{ 
+          rotate: [0, 360],
+        }}
+        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.div
+        className="absolute top-1/2 right-1/3 w-32 h-32 bg-white/5"
+        animate={{ 
+          y: [-20, 20, -20],
+          opacity: [0.05, 0.1, 0.05],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
     </div>
   );
 }
@@ -81,123 +173,108 @@ export function BrutalistHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const gridVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.02,
-      },
-    },
-  };
-
-  const cellVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0 } },
-  };
-
   return (
-    <div ref={containerRef} className="min-h-[90vh] flex flex-col">
-      {/* Top marquee */}
-      <Marquee>
-        {Array.from({ length: 8 }).map((_, i) => (
-          <span key={i} className="font-mono text-sm uppercase tracking-widest">
-            AVAILABLE FOR WORK • OPEN TO OPPORTUNITIES • HIRE ME •
-          </span>
-        ))}
-      </Marquee>
+    <div 
+      ref={containerRef} 
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+    >
+      {/* Animated gradient background */}
+      <GradientBackground />
+      
+      {/* Floating geometric shapes */}
+      <FloatingShapes />
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col justify-center">
-        <div className="container mx-auto px-4 md:px-6 py-12">
-          {/* Grid layout */}
-          <div className="grid grid-cols-12 gap-4 md:gap-8">
-            {/* Left column - main headline */}
-            <div className="col-span-12 lg:col-span-8">
-              <motion.div
-                initial={prefersReducedMotion ? {} : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0 }}
+      <div className="container mx-auto px-6 md:px-12 py-20 relative z-10">
+        <div className="max-w-6xl">
+          {/* Small intro text */}
+          <motion.p
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-mono text-sm md:text-base uppercase tracking-[0.3em] text-white/60 mb-6"
+          >
+            Full-Stack <RotatingWord words={SUBTITLE_WORDS} />
+          </motion.p>
+
+          {/* Main hero text with split animation */}
+          <h1 className="font-serif text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] tracking-[-0.02em] text-white mb-8">
+            <SplitText text={HERO_TEXT} />
+          </h1>
+
+          {/* Secondary line */}
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+          >
+            <h2 className="font-serif text-[8vw] md:text-[6vw] lg:text-[4vw] leading-[0.9] text-white/80 mb-12">
+              PORTFOLIO
+            </h2>
+          </motion.div>
+
+          {/* Description */}
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.5 }}
+            className="max-w-xl"
+          >
+            <p className="font-mono text-base md:text-lg text-white/50 leading-relaxed mb-12">
+              Computational Math @ UWaterloo. 
+              Data science, analytics, and building things that work.
+            </p>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.8 }}
+            className="flex flex-wrap gap-4"
+          >
+            <NextLink
+              href="/projects"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-mono text-sm uppercase tracking-wider overflow-hidden transition-transform hover:scale-105"
+            >
+              <span className="relative z-10">View Work</span>
+              <motion.span
+                className="relative z-10"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               >
-                {/* Small label */}
-                <p className="font-mono text-sm uppercase tracking-[0.2em] mb-4 border-b-2 border-[var(--border)] pb-2 inline-block">
-                  FULL-STACK
-                </p>
-
-                {/* Main headline with serif font */}
-                <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight">
-                  <TypeShift words={words} />
-                </h1>
-
-                {/* Subheadline */}
-                <div className="mt-8 border-l-4 border-[var(--fg)] pl-4">
-                  <p className="font-mono text-base md:text-lg leading-relaxed max-w-xl">
-                    BUILDING DIGITAL PRODUCTS WITH CODE AND DESIGN.
-                    <br />
-                    NO FRILLS. JUST FUNCTION.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Right column - info blocks */}
-            <div className="col-span-12 lg:col-span-4 flex flex-col gap-4 mt-8 lg:mt-0">
-              {/* Status block */}
-              <div className="border-2 border-[var(--border)] p-4">
-                <p className="font-mono text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-1">
-                  STATUS
-                </p>
-                <p className="font-serif text-2xl">Open to work</p>
-              </div>
-
-              {/* Location block */}
-              <div className="border-2 border-[var(--border)] p-4">
-                <p className="font-mono text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-1">
-                  BASED IN
-                </p>
-                <p className="font-serif text-2xl">San Francisco</p>
-              </div>
-
-              {/* CTA buttons */}
-              <div className="flex flex-col gap-2 mt-auto">
-                <NextLink
-                  href="/projects"
-                  className="block border-2 border-[var(--border)] bg-[var(--fg)] text-[var(--bg)] p-4 font-mono text-sm uppercase tracking-widest text-center hover:bg-[var(--bg)] hover:text-[var(--fg)] transition-none"
-                >
-                  VIEW PROJECTS →
-                </NextLink>
-                <NextLink
-                  href="/resume"
-                  className="block border-2 border-[var(--border)] p-4 font-mono text-sm uppercase tracking-widest text-center hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-none"
-                >
-                  RESUME
-                </NextLink>
-              </div>
-            </div>
-          </div>
+                →
+              </motion.span>
+            </NextLink>
+            
+            <NextLink
+              href="/resume"
+              className="inline-flex items-center gap-3 px-8 py-4 border border-white/30 text-white font-mono text-sm uppercase tracking-wider transition-all hover:bg-white/10 hover:border-white/60"
+            >
+              Resume
+            </NextLink>
+          </motion.div>
         </div>
       </div>
 
-      {/* Decorative grid */}
+      {/* Bottom info bar */}
       <motion.div
-        variants={prefersReducedMotion ? {} : gridVariants}
-        initial="hidden"
-        animate="visible"
-        className="border-t-2 border-[var(--border)] p-4"
+        initial={prefersReducedMotion ? {} : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 2.2 }}
+        className="absolute bottom-0 left-0 right-0 border-t border-white/10 py-6"
       >
-        <div className="container mx-auto">
-          <div className="grid grid-cols-12 md:grid-cols-24 gap-1">
-            {Array.from({ length: 48 }).map((_, i) => (
-              <motion.div
-                key={i}
-                variants={cellVariants}
-                className={cn(
-                  'aspect-square border border-[var(--border)]',
-                  i % 7 === 0 && 'bg-[var(--fg)]',
-                  i % 11 === 0 && 'bg-[var(--accent)]'
-                )}
-              />
-            ))}
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex flex-wrap justify-between items-center gap-4 font-mono text-xs uppercase tracking-wider text-white/40">
+            <span>Based in Toronto, Canada</span>
+            <span>University of Waterloo</span>
+            <span className="hidden md:inline">React • Next.js • TypeScript</span>
+            <motion.span
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              Scroll ↓
+            </motion.span>
           </div>
         </div>
       </motion.div>

@@ -3,8 +3,8 @@ import { JournalList } from './journal-list';
 import { getAllPosts, getAllTags } from '@/lib/mdx';
 
 export const metadata: Metadata = {
-  title: 'Journal',
-  description: 'Thoughts on code, design, and building software.',
+  title: 'Substack',
+  description: 'Thoughts, ideas and reflections from my life.',
 };
 
 export default function JournalPage() {

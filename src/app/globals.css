@@ -1,41 +1,36 @@
 @import "tailwindcss";
 
-/* ============================================================================
-   CSS CUSTOM PROPERTIES (Design Tokens)
-   These are dynamically updated by the ThemeProvider based on active theme.
-   ============================================================================ */
-
 :root {
-  /* Colors - defaults (overridden by theme provider) */
-  --bg: #ffffff;
-  --bg-secondary: #f8fafc;
-  --fg: #0f172a;
-  --fg-muted: #64748b;
-  --primary: #3b82f6;
+  /* Colors - defaults (dark theme - overridden by theme provider) */
+  --bg: #050505;
+  --bg-secondary: #0a0a0a;
+  --fg: #fafafa;
+  --fg-muted: #a1a1aa;
+  --primary: #6366f1;
   --primary-fg: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-fg: #0f172a;
-  --accent: #8b5cf6;
+  --secondary: rgba(255, 255, 255, 0.08);
+  --secondary-fg: #fafafa;
+  --accent: #a855f7;
   --accent-fg: #ffffff;
-  --border: #e2e8f0;
-  --card: #ffffff;
-  --card-fg: #0f172a;
-  --muted: #f1f5f9;
-  --muted-fg: #64748b;
+  --border: rgba(255, 255, 255, 0.1);
+  --card: rgba(255, 255, 255, 0.05);
+  --card-fg: #fafafa;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-fg: #71717a;
   
   /* Effects */
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --radius: 0.5rem;
-  --radius-lg: 0.75rem;
+  --shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
   
   /* Typography */
   --text-scale: 1;
   --heading-scale: 1;
   --letter-spacing: 0;
-  --heading-letter-spacing: -0.025em;
+  --heading-letter-spacing: -0.03em;
   --line-height: 1.6;
-  --heading-weight: 700;
+  --heading-weight: 600;
   
   /* Fonts - defaults (overridden by theme provider) */
   --font-sans: system-ui, -apple-system, sans-serif;
@@ -44,11 +39,6 @@
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);
 }
-
-/* ============================================================================
-   TAILWIND THEME CONFIGURATION
-   Maps CSS variables to Tailwind's theme for use with utility classes.
-   ============================================================================ */
 
 @theme inline {
   /* Colors */
@@ -81,10 +71,6 @@
   --radius-xl: calc(var(--radius-lg) * 1.5);
 }
 
-/* ============================================================================
-   BASE STYLES
-   ============================================================================ */
-
 html {
   scroll-behavior: smooth;
 }
@@ -114,9 +100,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ============================================================================
-   TYPOGRAPHY STYLES
-   ============================================================================ */
+/* Typography */
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
@@ -165,9 +149,7 @@ h3 {
   font-family: var(--font-serif);
 }
 
-/* ============================================================================
-   LINK FOCUS STYLES (Accessibility)
-   ============================================================================ */
+/* Accessibility */
 
 a:focus-visible,
 button:focus-visible,
@@ -176,18 +158,14 @@ button:focus-visible,
   outline-offset: 2px;
 }
 
-/* ============================================================================
-   SELECTION STYLES
-   ============================================================================ */
+/* Selection Styles */
 
 ::selection {
   background-color: var(--primary);
   color: var(--primary-fg);
 }
 
-/* ============================================================================
-   SCROLLBAR STYLES
-   ============================================================================ */
+/* Scrollbar Styles - Dark theme optimized */
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -195,16 +173,16 @@ button:focus-visible,
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--fg-muted);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Brutalist theme - no rounded scrollbar */
@@ -212,9 +190,7 @@ button:focus-visible,
   border-radius: 0;
 }
 
-/* ============================================================================
-   PROSE STYLES FOR MDX CONTENT
-   ============================================================================ */
+/* Prose Styles (MDX Content) */
 
 .prose {
   --tw-prose-body: var(--fg);
@@ -229,9 +205,7 @@ button:focus-visible,
   --tw-prose-hr: var(--border);
 }
 
-/* ============================================================================
-   UTILITY CLASSES
-   ============================================================================ */
+/* Utility Classes */
 
 .font-display {
   font-family: var(--font-display);
@@ -246,9 +220,7 @@ button:focus-visible,
   border-width: 3px;
 }
 
-/* ============================================================================
-   ANIMATION UTILITIES
-   ============================================================================ */
+/* Animation Utilities */
 
 @keyframes fade-in {
   from {
@@ -304,4 +276,54 @@ button:focus-visible,
 
 .animate-marquee {
   animation: marquee 20s linear infinite;
+}
+
+/* Glassmorphism Utilities */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-primary {
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+}
+
+/* Main theme specific styles */
+[data-theme="main"] {
+  color-scheme: dark;
+}
+
+[data-theme="main"] ::selection {
+  background-color: rgba(99, 102, 241, 0.4);
+  color: #ffffff;
 }

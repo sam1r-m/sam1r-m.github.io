@@ -66,130 +66,135 @@ type ComponentVariants = {
 const mainVariants: ComponentVariants = {
   button: {
     primary: `
-      bg-[var(--primary)] text-[var(--primary-fg)]
-      rounded-[var(--radius)] px-6 py-2.5 font-medium
-      shadow-[var(--shadow)] hover:shadow-[var(--shadow-lg)]
-      transition-all duration-200 ease-out
-      hover:-translate-y-0.5 hover:brightness-110
-      active:translate-y-0 active:shadow-[var(--shadow)]
-      focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2
+      bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]
+      text-white font-medium
+      rounded-[var(--radius)] px-6 py-2.5
+      transition-all duration-300 ease-out
+      hover:opacity-90 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]
+      active:scale-[0.98]
+      focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 focus:ring-offset-2 focus:ring-offset-[var(--bg)]
     `,
     secondary: `
-      bg-[var(--secondary)] text-[var(--secondary-fg)]
+      bg-white/10 backdrop-blur-md text-[var(--fg)]
+      border border-white/20
       rounded-[var(--radius)] px-6 py-2.5 font-medium
-      shadow-[var(--shadow)] hover:shadow-[var(--shadow-lg)]
-      transition-all duration-200 ease-out
-      hover:-translate-y-0.5 hover:bg-[var(--muted)]
-      active:translate-y-0
-      focus:outline-none focus:ring-2 focus:ring-[var(--border)] focus:ring-offset-2
+      transition-all duration-300 ease-out
+      hover:bg-white/15 hover:border-white/30
+      active:scale-[0.98]
+      focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-[var(--bg)]
     `,
     ghost: `
       bg-transparent text-[var(--fg)]
       rounded-[var(--radius)] px-6 py-2.5 font-medium
-      transition-colors duration-200 ease-out
-      hover:bg-[var(--muted)]
-      focus:outline-none focus:ring-2 focus:ring-[var(--border)] focus:ring-offset-2
+      transition-all duration-300 ease-out
+      hover:bg-white/10
+      focus:outline-none focus:ring-2 focus:ring-white/20
     `,
     outline: `
       bg-transparent text-[var(--fg)]
-      border border-[var(--border)]
+      border border-white/20
       rounded-[var(--radius)] px-6 py-2.5 font-medium
-      transition-all duration-200 ease-out
-      hover:bg-[var(--muted)] hover:border-[var(--fg-muted)]
-      focus:outline-none focus:ring-2 focus:ring-[var(--border)] focus:ring-offset-2
+      transition-all duration-300 ease-out
+      hover:bg-white/10 hover:border-white/30
+      focus:outline-none focus:ring-2 focus:ring-white/20
     `,
   },
   link: {
     default: `
       text-[var(--primary)] underline-offset-4
-      transition-colors duration-200
-      hover:underline hover:text-[var(--accent)]
-      focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 rounded
+      transition-all duration-300
+      hover:text-[var(--accent)]
+      focus:outline-none
     `,
     nav: `
-      text-[var(--fg)] font-medium
-      transition-colors duration-200
-      hover:text-[var(--primary)]
+      text-[var(--fg-muted)] font-medium
+      transition-colors duration-300
+      hover:text-[var(--fg)]
       focus:outline-none
     `,
     muted: `
       text-[var(--fg-muted)]
-      transition-colors duration-200
+      transition-colors duration-300
       hover:text-[var(--fg)]
     `,
   },
   card: {
     default: `
-      bg-[var(--card)] text-[var(--card-fg)]
+      bg-white/5 backdrop-blur-xl text-[var(--card-fg)]
       rounded-[var(--radius-lg)] p-6
-      border border-[var(--border)]
+      border border-white/10
     `,
     elevated: `
-      bg-[var(--card)] text-[var(--card-fg)]
+      bg-white/5 backdrop-blur-xl text-[var(--card-fg)]
       rounded-[var(--radius-lg)] p-6
-      shadow-[var(--shadow-lg)]
+      border border-white/10
+      shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]
     `,
     interactive: `
-      bg-[var(--card)] text-[var(--card-fg)]
+      bg-white/5 backdrop-blur-xl text-[var(--card-fg)]
       rounded-[var(--radius-lg)] p-6
-      border border-[var(--border)]
-      shadow-[var(--shadow)]
+      border border-white/10
       transition-all duration-300 ease-out
-      hover:shadow-[var(--shadow-lg)] hover:-translate-y-1 hover:border-[var(--primary)]
+      hover:bg-white/10 hover:border-white/20
+      hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]
     `,
   },
   badge: {
     default: `
-      inline-flex items-center px-2.5 py-0.5
+      inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      bg-[var(--muted)] text-[var(--muted-fg)]
+      bg-white/10 backdrop-blur-md text-[var(--fg-muted)]
+      border border-white/10
     `,
     primary: `
-      inline-flex items-center px-2.5 py-0.5
+      inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      bg-[var(--primary)] text-[var(--primary-fg)]
+      bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]
+      text-white
     `,
     secondary: `
-      inline-flex items-center px-2.5 py-0.5
+      inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      bg-[var(--secondary)] text-[var(--secondary-fg)]
+      bg-white/10 backdrop-blur-md text-[var(--fg)]
+      border border-white/10
     `,
     accent: `
-      inline-flex items-center px-2.5 py-0.5
+      inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      bg-[var(--accent)] text-[var(--accent-fg)]
+      bg-[var(--accent)]/20 text-[var(--accent)]
+      border border-[var(--accent)]/30
     `,
     outline: `
-      inline-flex items-center px-2.5 py-0.5
+      inline-flex items-center px-3 py-1
       rounded-full text-xs font-medium
-      border border-[var(--border)] text-[var(--fg)]
+      border border-white/20 text-[var(--fg)]
     `,
   },
   input: {
     default: `
       w-full px-4 py-2.5
-      bg-[var(--bg)] text-[var(--fg)]
-      border border-[var(--border)]
+      bg-white/5 backdrop-blur-md text-[var(--fg)]
+      border border-white/10
       rounded-[var(--radius)]
-      transition-colors duration-200
-      focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent
+      transition-all duration-300
+      focus:outline-none focus:border-[var(--primary)]/50 focus:bg-white/10
       placeholder:text-[var(--fg-muted)]
     `,
   },
   nav: {
     container: `
-      bg-[var(--bg)]/80 backdrop-blur-md
-      border-b border-[var(--border)]
+      bg-[var(--bg)]/80 backdrop-blur-xl
+      border-b border-white/10
     `,
     item: `
       text-[var(--fg-muted)] font-medium px-3 py-2
-      transition-colors duration-200
+      transition-colors duration-300
       hover:text-[var(--fg)]
       rounded-[var(--radius)]
     `,
     itemActive: `
-      text-[var(--primary)] font-medium px-3 py-2
-      bg-[var(--primary)]/10
+      text-[var(--fg)] font-medium px-3 py-2
+      bg-white/10 backdrop-blur-md
       rounded-[var(--radius)]
     `,
   },
@@ -215,7 +220,7 @@ const mainVariants: ComponentVariants = {
     `,
   },
   sectionHeader: `
-    text-3xl md:text-4xl font-bold tracking-tight text-[var(--fg)]
+    text-3xl md:text-4xl font-semibold tracking-tight text-[var(--fg)]
   `,
 };
 

@@ -1,36 +1,82 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, type Variants } from 'framer-motion';
-import { ArrowDown, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui';
-import { useTheme, useReducedMotion } from '@/themes';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { useReducedMotion } from '@/themes';
 import { cn } from '@/lib/utils';
 import NextLink from 'next/link';
 
 /**
- * MainHero
+ * MainHero - Redesigned
  * 
- * Modern motion design hero with:
- * - Animated gradient background orbs
- * - Kinetic typography with staggered reveals
- * - Floating UI elements
- * - Smooth scroll-linked parallax
- * - Glossy, polished buttons with hover states
+ * Cohere/Apple-inspired dark theme with:
+ * - Animated gradient orbs in background
+ * - Frosted glass elements (glassmorphism)
+ * - Gradient text accents
+ * - Smooth, elegant animations
+ * - Grid pattern overlay
  */
+
+function GradientOrb({ 
+  className, 
+  delay = 0,
+  duration = 20,
+}: { 
+  className?: string;
+  delay?: number;
+  duration?: number;
+}) {
+  const prefersReducedMotion = useReducedMotion();
+  
+  if (prefersReducedMotion) {
+    return <div className={cn('absolute rounded-full blur-3xl', className)} />;
+  }
+
+  return (
+    <motion.div
+      className={cn('absolute rounded-full blur-3xl', className)}
+      animate={{
+        x: [0, 50, -30, 0],
+        y: [0, -40, 30, 0],
+        scale: [1, 1.2, 0.9, 1],
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: 'easeInOut',
+        delay,
+      }}
+    />
+  );
+}
+
+function GlassCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn(
+        'bg-white/5 backdrop-blur-xl',
+        'border border-white/10',
+        'rounded-2xl',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function MainHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const { colorMode } = useTheme();
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const springY = useSpring(y, { stiffness: 100, damping: 30 });
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -44,156 +90,180 @@ export function MainHero() {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-    },
-  };
-
-  const orbVariants: Variants = {
-    animate: {
-      x: [0, 30, -20, 0],
-      y: [0, -30, 20, 0],
-      scale: [1, 1.1, 0.95, 1],
-      transition: {
-        duration: 20,
-        repeat: Infinity,
-        ease: [0.42, 0, 0.58, 1] as [number, number, number, number],
-      },
+      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
     },
   };
 
   return (
     <div
       ref={containerRef}
-      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]"
     >
-      {/* Animated background orbs */}
-      {!prefersReducedMotion && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            variants={orbVariants}
-            animate="animate"
-            className={cn(
-              'absolute -top-20 -left-20 w-96 h-96 rounded-full blur-3xl opacity-30',
-              colorMode === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
-            )}
-          />
-          <motion.div
-            variants={orbVariants}
-            animate="animate"
-            style={{ animationDelay: '5s' }}
-            className={cn(
-              'absolute top-1/2 -right-20 w-80 h-80 rounded-full blur-3xl opacity-30',
-              colorMode === 'dark' ? 'bg-purple-500' : 'bg-purple-400'
-            )}
-          />
-          <motion.div
-            variants={orbVariants}
-            animate="animate"
-            style={{ animationDelay: '10s' }}
-            className={cn(
-              'absolute -bottom-20 left-1/3 w-72 h-72 rounded-full blur-3xl opacity-20',
-              colorMode === 'dark' ? 'bg-pink-500' : 'bg-pink-400'
-            )}
-          />
-        </div>
-      )}
+      {/* Animated gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <GradientOrb
+          className="w-[600px] h-[600px] -top-40 -left-40 bg-indigo-600/30"
+          delay={0}
+          duration={25}
+        />
+        <GradientOrb
+          className="w-[500px] h-[500px] top-1/3 -right-20 bg-purple-600/25"
+          delay={5}
+          duration={30}
+        />
+        <GradientOrb
+          className="w-[400px] h-[400px] -bottom-20 left-1/4 bg-violet-600/20"
+          delay={10}
+          duration={22}
+        />
+        <GradientOrb
+          className="w-[300px] h-[300px] top-1/2 left-1/2 bg-fuchsia-600/15"
+          delay={7}
+          duration={28}
+        />
+      </div>
 
-      {/* Grid background */}
+      {/* Grid pattern overlay */}
       <div
-        className={cn(
-          'absolute inset-0 opacity-[0.03]',
-          'bg-[linear-gradient(var(--fg)_1px,transparent_1px),linear-gradient(90deg,var(--fg)_1px,transparent_1px)]',
-          'bg-[size:60px_60px]'
-        )}
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), 
+                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Radial gradient overlay for depth */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 0%, #050505 70%)',
+        }}
       />
 
       {/* Content */}
       <motion.div
-        style={prefersReducedMotion ? {} : { y: springY, opacity }}
-        className="relative z-10 container mx-auto px-4 md:px-6"
+        style={prefersReducedMotion ? {} : { opacity, y }}
+        className="relative z-10 container mx-auto px-6 md:px-8"
       >
         <motion.div
           variants={prefersReducedMotion ? {} : containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-5xl mx-auto"
         >
-          {/* Badge */}
-          <motion.div variants={itemVariants} className="mb-6">
-            <span
-              className={cn(
-                'inline-flex items-center gap-2 px-4 py-2',
-                'bg-[var(--primary)]/10 text-[var(--primary)]',
-                'rounded-full text-sm font-medium',
-                'border border-[var(--primary)]/20'
-              )}
-            >
-              <Sparkles className="w-4 h-4" />
-              Available for work
-            </span>
+          {/* Status badge - frosted glass */}
+          <motion.div variants={itemVariants} className="flex justify-center mb-8">
+            <GlassCard className="px-4 py-2 inline-flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+              </span>
+              <span className="text-sm text-white/70">Open to opportunities</span>
+            </GlassCard>
           </motion.div>
 
-          {/* Main heading */}
+          {/* Main headline with gradient */}
           <motion.h1
             variants={itemVariants}
-            className={cn(
-              'text-5xl md:text-6xl lg:text-7xl font-bold',
-              'tracking-tight leading-[1.1]',
-              'bg-gradient-to-br from-[var(--fg)] via-[var(--fg)] to-[var(--fg-muted)]',
-              'bg-clip-text text-transparent'
-            )}
+            className="text-center text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.1]"
           >
-            Building digital
-            <br />
-            <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] bg-clip-text">
-              experiences
+            <span className="text-white">Hi, I&apos;m </span>
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Samir
             </span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             variants={itemVariants}
-            className="mt-6 text-lg md:text-xl text-[var(--fg-muted)] max-w-2xl mx-auto"
+            className="mt-6 text-center text-xl md:text-2xl text-white/60 max-w-2xl mx-auto leading-relaxed"
           >
-            Full-stack developer passionate about creating beautiful, performant,
-            and accessible web applications that make a difference.
+            Computational Math @ UWaterloo.
+            <br className="hidden sm:block" />
+            Data science, analytics, and building things that work.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - frosted glass */}
           <motion.div
             variants={itemVariants}
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
             <NextLink href="/projects">
-              <Button variant="primary" size="lg">
+              <motion.button
+                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+                className={cn(
+                  'group flex items-center gap-2 px-8 py-4',
+                  'bg-gradient-to-r from-indigo-500 to-purple-600',
+                  'text-white font-medium rounded-xl',
+                  'transition-all duration-300',
+                  'hover:shadow-[0_0_40px_rgba(99,102,241,0.4)]'
+                )}
+              >
                 View Projects
-              </Button>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </motion.button>
             </NextLink>
+            
             <NextLink href="/resume">
-              <Button variant="outline" size="lg">
+              <motion.button
+                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+                className={cn(
+                  'px-8 py-4',
+                  'bg-white/10 backdrop-blur-md',
+                  'text-white font-medium rounded-xl',
+                  'border border-white/20',
+                  'transition-all duration-300',
+                  'hover:bg-white/15 hover:border-white/30'
+                )}
+              >
                 Resume
-              </Button>
+              </motion.button>
             </NextLink>
           </motion.div>
 
-          {/* Scroll indicator */}
+          {/* Stats row - frosted glass cards */}
           <motion.div
             variants={itemVariants}
-            className="mt-16"
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
           >
-            <motion.div
-              animate={prefersReducedMotion ? {} : { y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as [number, number, number, number] }}
-              className="flex flex-col items-center gap-2 text-[var(--fg-muted)]"
-            >
-              <span className="text-sm">Scroll to explore</span>
-              <ArrowDown className="w-5 h-5" />
-            </motion.div>
+            {[
+              { label: 'Internships', value: '4' },
+              { label: 'Year', value: '4th' },
+              { label: 'Certifications', value: '3' },
+              { label: 'Projects', value: '10+' },
+            ].map((stat) => (
+              <GlassCard key={stat.label} className="p-4 text-center">
+                <p className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                  {stat.value}
+                </p>
+                <p className="text-sm text-white/50 mt-1">{stat.label}</p>
+              </GlassCard>
+            ))}
           </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={prefersReducedMotion ? {} : { y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col items-center gap-2 text-white/40"
+        >
+          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
         </motion.div>
       </motion.div>
     </div>

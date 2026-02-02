@@ -57,7 +57,7 @@ export function AboutPreview() {
             </div>
             <div className="flex items-center gap-3 text-[var(--fg-muted)]">
               <Code className="w-5 h-5 text-[var(--primary)]" />
-              <span>{resume.experience.length}+ years of experience</span>
+              <span>4th Year Math Student</span>
             </div>
           </div>
 
@@ -83,14 +83,14 @@ export function AboutPreview() {
             ))}
           </div>
 
-          {/* Recent experience */}
+          {/* Education */}
           <div className="mt-8 pt-8 border-t border-[var(--border)]">
-            <h3 className="text-lg font-semibold mb-4">Current Role</h3>
+            <h3 className="text-lg font-semibold mb-4">Currently Studying</h3>
             <div className="space-y-1">
-              <p className="font-medium">{resume.experience[0].role}</p>
-              <p className="text-[var(--fg-muted)]">{resume.experience[0].company}</p>
+              <p className="font-medium">{resume.education[0].degree}</p>
+              <p className="text-[var(--fg-muted)]">{resume.education[0].institution}</p>
               <p className="text-sm text-[var(--fg-muted)]">
-                {resume.experience[0].startDate} — Present
+                {resume.education[0].startDate} — {resume.education[0].endDate}
               </p>
             </div>
           </div>

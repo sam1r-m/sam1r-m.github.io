@@ -157,7 +157,7 @@ export function NeoBrutalHero() {
             </StickerBadge>
             <StickerBadge rotate={2} className="bg-[var(--primary)] text-[var(--primary-fg)]">
               <Star className="w-4 h-4" />
-              5+ Years Exp
+              UWaterloo
             </StickerBadge>
             <StickerBadge rotate={-1} className="hidden md:inline-flex bg-[var(--accent)] text-[var(--accent-fg)]">
               <Heart className="w-4 h-4" />
@@ -190,8 +190,8 @@ export function NeoBrutalHero() {
             variants={itemVariants}
             className="mt-8 text-lg md:text-xl text-[var(--fg-muted)] max-w-xl font-medium"
           >
-            I create fun, functional, and beautiful web experiences.
-            Let&apos;s make something awesome together!
+            Computational Math @ UWaterloo.
+            Data science, analytics, and building cool stuff!
           </motion.p>
 
           {/* CTA Buttons */}
@@ -244,8 +244,8 @@ export function NeoBrutalHero() {
             className="mt-16 flex flex-wrap gap-6"
           >
             {[
-              { label: 'Projects', value: '50+' },
-              { label: 'Happy Clients', value: '30+' },
+              { label: 'Year', value: '4th' },
+              { label: 'Projects', value: '10+' },
               { label: 'Coffees', value: '∞' },
             ].map((stat) => (
               <div
