@@ -1,7 +1,7 @@
 (function () {
   var WRAPPER_ID = "site-backdrop";
   var PURPLE_DARK = [0x22, 0x00, 0x55];
-  var PURPLE_LIGHT = [0xaa, 0x55, 0xff];
+  var PURPLE_LIGHT = [0xe0, 0x55, 0xa8];
   var NUM_SPECIES = 5;
   var INTERACT_R = 62;
   var INTERACT_R2 = INTERACT_R * INTERACT_R;

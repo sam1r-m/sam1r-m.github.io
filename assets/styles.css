@@ -5,7 +5,8 @@
   --link: #0000ee;
   --link-visited: #551a8b;
   --purple-dark: #220055;
-  --purple-light: #aa55ff;
+  --purple-light: #e055a8;
+  --uw-gold: #b8860b;
 }
 
 * {
@@ -52,6 +53,14 @@ h1 {
 .site-name {
   color: var(--purple-dark);
   font-weight: 900;
+}
+
+.degree-highlight {
+  color: var(--purple-light);
+}
+
+.title-uw {
+  color: var(--uw-gold);
 }
 
 @media (min-width: 640px) {
