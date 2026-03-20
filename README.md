@@ -1,3 +1,3 @@
-This is my personal website.
+# samirmd.com
 
-Access here: [samir-m.vercel.app](https://samir-m.vercel.app)
+this is my corner of the internet

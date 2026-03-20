@@ -1,5 +1,0 @@
-export { Hero } from './Hero'
-export { MainHero } from './MainHero'
-export { BrutalistHero } from './BrutalistHero'
-export { NeoBrutalHero } from './NeoBrutalHero'
-export { MinimalistHero } from './MinimalistHero'
