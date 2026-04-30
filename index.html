@@ -11,6 +11,7 @@
     <link rel="icon" href="favicon.ico" sizes="any" />
     <link rel="stylesheet" href="assets/styles.css" />
     <script src="assets/backdrop.js" defer></script>
+    <script src="assets/vercel-insights.js" defer></script>
   </head>
   <body>
     <main>
@@ -25,7 +26,12 @@
         <a href="books.html">Books</a>. <a href="tv.html">TV</a>.
         <a href="photography.html">Photography</a>. I also
         <a href="writing.html">write</a>. —
-        <a href="resume.pdf">Resume</a>.
+        <a
+          href="resume.pdf"
+          data-analytics-event="Resume Link Click"
+          data-analytics-label="resume"
+          >Resume</a
+        >.
       </p>
 
       <p>
@@ -49,6 +55,8 @@
           href="https://blackjack.samirmd.com/"
           target="_blank"
           rel="noopener noreferrer"
+          data-analytics-event="Project Link Click"
+          data-analytics-label="blackjack"
           >blackjack</a
         >
         and
@@ -56,6 +64,8 @@
           href="https://ascii.samirmd.com/"
           target="_blank"
           rel="noopener noreferrer"
+          data-analytics-event="Project Link Click"
+          data-analytics-label="ascii"
           >ascii</a
         >
         subdomains.
